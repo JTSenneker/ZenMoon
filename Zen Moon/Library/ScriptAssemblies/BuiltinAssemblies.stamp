@@ -1,2 +1,7 @@
+<<<<<<< master
 0000.58087744.0000
 0000.58087766.0000
+=======
+0000.57c821ea.0000
+0000.57c82212.0000
+>>>>>>> got the grid spawn working and the targeting helper to track correctly. May need some fine tuning with the size of the collider. Still need to add different 'ground' types, but that should be easily doable
