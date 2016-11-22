@@ -4,6 +4,11 @@ using System.Collections;
 public class PlayerController : MonoBehaviour 
 {
     Animator anim;
+    SpriteRenderer sr;
+    public Sprite forwardSprite;
+    public Sprite backwardSprite;
+    public Sprite sideSprite;
+
     float walkV = 0;
     float walkH = 0;
     public float velocity = 1;
@@ -22,6 +27,7 @@ public class PlayerController : MonoBehaviour
 	void Start () 
     {
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -30,45 +36,61 @@ public class PlayerController : MonoBehaviour
         walkV = Input.GetAxis("Vertical");
         walkH = Input.GetAxis("Horizontal");
         anim.SetFloat("verticalSpeed", walkV);
-        anim.SetFloat("horizontalSpeed", walkH);
+        anim.SetFloat("horizontalSpeed", Mathf.Abs(walkH));
 
+        switch (movement)
+        {    
+            case direction.forward:
+                sr.sprite = forwardSprite;
+                MoveVertical();
+                break;
+            case direction.backward:
+                sr.sprite = backwardSprite;
+                MoveVertical();
+                break;
+            case direction.left:
+                sr.sprite = sideSprite;
+                sr.flipX = true;
+                MoveHorizontal();
+                break;
+            case direction.right:
+                sr.sprite = sideSprite;
+                sr.flipX = false;
+                MoveHorizontal();
+                break;
+        }
+        CheckInput();
+	}
+
+    private void MoveHorizontal()
+    {
+        speed = walkH * velocity * Time.deltaTime;
+        transform.position += new Vector3(speed, 0, 0);
+    }
+
+    private void MoveVertical()
+    {
+        speed = walkV * velocity * Time.deltaTime;
+        transform.position += new Vector3(0, speed, 0);
+    }
+
+    private void CheckInput()
+    {
         if (walkV < 0)
         {
-            anim.SetBool("isWalkingForward", true);
+            movement = direction.forward;
         }
-        if (walkV > 0)
+        else if (walkV > 0)
         {
-            anim.SetBool("isWalkingBackward", true);
+            movement = direction.backward;
         }
-        if (walkV == 0)
+        else if (walkH < 0)
         {
-            anim.SetBool("isWalkingForward", false);
-            anim.SetBool("isWalkingBackward", false);
+            movement = direction.left;
         }
-        if (walkH < 0)
+        else if (walkH > 0)
         {
-            anim.SetBool("isWalkingLeft", true);
+            movement = direction.right;
         }
-        if (walkH > 0)
-        {
-            anim.SetBool("isWalkingRight", true);
-        }
-        if (walkH == 0)
-        {
-            anim.SetBool("isWalkingLeft", false);
-            anim.SetBool("isWalkingRight", false);
-        }
-
-        if (walkV != 0)
-        {
-            speed = walkV * velocity * Time.deltaTime;
-            transform.position += new Vector3(0, speed, 0);
-        }
-        else if (walkH != 0)
-        {
-            speed = walkH * velocity * Time.deltaTime;
-            transform.position += new Vector3(speed, 0, 0);
-        }
-        
-	}
+    }
 }
