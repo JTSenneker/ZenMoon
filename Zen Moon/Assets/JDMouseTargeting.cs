@@ -27,8 +27,8 @@ public class JDMouseTargeting : MonoBehaviour {
 
         if (hit.collider != null)
         {
-            //mouseHelper.transform.position = hit.collider.transform.position;
-            mouseHelper.transform.position = new Vector3(hit.collider.transform.position.x, 0, hit.collider.transform.position.z);
+            mouseHelper.transform.position = hit.collider.transform.position;
+            
             //print("helper " + mouseHelper.transform.position);
             //print(hit.collider.name);
             //print(hit.collider.transform.position);
