@@ -33,28 +33,33 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        walkV = Input.GetAxis("Vertical");
-        walkH = Input.GetAxis("Horizontal");
+        walkV = Input.GetAxisRaw("Vertical") * -1;
+        walkH = Input.GetAxisRaw("Horizontal");
+        print(walkH);
         anim.SetFloat("verticalSpeed", walkV);
         anim.SetFloat("horizontalSpeed", Mathf.Abs(walkH));
 
         switch (movement)
         {    
             case direction.forward:
-                sr.sprite = forwardSprite;
+                anim.SetBool("facingBack", false);
+                anim.SetBool("facingSide", false);
                 MoveVertical();
                 break;
             case direction.backward:
-                sr.sprite = backwardSprite;
+                anim.SetBool("facingSide", false);
+                anim.SetBool("facingBack", true);
                 MoveVertical();
                 break;
             case direction.left:
-                sr.sprite = sideSprite;
+                anim.SetBool("facingBack", false);
+                anim.SetBool("facingSide", true);
                 sr.flipX = true;
                 MoveHorizontal();
                 break;
             case direction.right:
-                sr.sprite = sideSprite;
+                anim.SetBool("facingBack", false);
+                anim.SetBool("facingSide", true);
                 sr.flipX = false;
                 MoveHorizontal();
                 break;
