@@ -28,6 +28,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     float walkH = 0;
     /// <summary>
+    /// Whether or not the hoe is equipped
+    /// </summary>
+    bool hoeEquip = false;
+    /// <summary>
+    /// Whether or not the wateringCan is equipped
+    /// </summary>
+    bool waterEquip = false;
+    /// <summary>
     /// The velocity of the player
     /// </summary>
     public float velocity = 1;
@@ -68,19 +76,30 @@ public class PlayerController : MonoBehaviour
     {
         walkV = Input.GetAxisRaw("Vertical");
         walkH = Input.GetAxisRaw("Horizontal");
+        float input = Input.GetAxisRaw("Inventory Scroll");
+        float action = Input.GetAxis("Action");
 
-        if (Input.GetAxisRaw("Inventory Scroll") != 0)
+        if (invCon.animFinished)
         {
-            anim.SetBool("facingBack", false);
-            anim.SetBool("facingSide", false);
-            anim.SetBool("swappingInventory", true);
-            invCon.animFinished = false;
-            invCon.ShowItem();
-        }
-        else
-        {
-            MovePlayer();
-        }
+            if (input != 0)
+            {
+                anim.SetBool("facingBack", false);
+                anim.SetBool("facingSide", false);
+                anim.SetBool("swappingInventory", true);
+                invCon.MoveInventory(input);
+                invCon.animFinished = false;
+                invCon.ShowItem();
+            }
+            else if (action != 0)
+            {
+                anim.SetBool("isHoe", true);
+                //Change dirt to tilled dirt
+            }
+            else
+            {
+                MovePlayer();
+            }
+        } 
 
         CheckDirection();
 	}
@@ -169,5 +188,10 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("swappingInventory", false);
         invCon.animFinished = true;
         invCon.HideItem();
+    }
+
+    public void HoeAnimEnd()
+    {
+        anim.SetBool("isHoe", false);
     }
 }

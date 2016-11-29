@@ -53,19 +53,16 @@ public class InventoryController : MonoBehaviour
 	/// </summary>
 	void Update () 
     {
-        MoveInventory();
         currItem = (GameObject)inventory[currIndex];
 	}
 
     /// <summary>
     /// Moves through the inventory and wraps the inventory
     /// </summary>
-    private void MoveInventory()
+    public void MoveInventory(float input)
     {
         if (animFinished)
         {
-            float input = Input.GetAxisRaw("Inventory Scroll");
-
             currIndex += (int)input;
 
             if (currIndex == -1)
