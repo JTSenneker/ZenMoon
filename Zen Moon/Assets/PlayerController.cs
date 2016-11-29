@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     bool waterEquip = false;
     /// <summary>
+    /// Whether or not the animation has ended.
+    /// </summary>
+    bool animFinished = true;
+    /// <summary>
     /// The velocity of the player
     /// </summary>
     public float velocity = 1;
@@ -79,7 +83,7 @@ public class PlayerController : MonoBehaviour
         float input = Input.GetAxisRaw("Inventory Scroll");
         float action = Input.GetAxis("Action");
 
-        if (invCon.animFinished)
+        if (animFinished)
         {
             if (input != 0)
             {
@@ -87,19 +91,27 @@ public class PlayerController : MonoBehaviour
                 anim.SetBool("facingSide", false);
                 anim.SetBool("swappingInventory", true);
                 invCon.MoveInventory(input);
-                invCon.animFinished = false;
+                animFinished = false;
                 invCon.ShowItem();
             }
-            else if (action != 0)
+            else if (action != 0 && invCon.currItem != null)
             {
-                anim.SetBool("isHoe", true);
-                //Change dirt to tilled dirt
+                if (invCon.currItem.tag == "hoe")
+                {
+                    anim.SetBool("isHoe", true);
+                    //Change dirt to tilled dirt
+                }
+                if (invCon.currItem.tag == "wateringCan")
+                {
+                    anim.SetBool("isWater", true);
+                    //Change dirt to watered dirt
+                }
             }
             else
             {
                 MovePlayer();
             }
-        } 
+        }
 
         CheckDirection();
 	}
@@ -186,12 +198,20 @@ public class PlayerController : MonoBehaviour
     public void InventorySwapEnd()
     {
         anim.SetBool("swappingInventory", false);
-        invCon.animFinished = true;
+        animFinished = true;
         invCon.HideItem();
     }
 
+    /// <summary>
+    /// Triggers a transition when the hoe animation ends
+    /// </summary>
     public void HoeAnimEnd()
     {
         anim.SetBool("isHoe", false);
+    }
+
+    public void WaterAnimEnd()
+    {
+        anim.SetBool("isWater", false);
     }
 }

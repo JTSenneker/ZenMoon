@@ -13,7 +13,7 @@ public class InventoryController : MonoBehaviour
     /// <summary>
     /// The selected inventory item
     /// </summary>
-    GameObject currItem;
+    public GameObject currItem = null;
     /// <summary>
     /// The selected item that shows up on the screen for a small amount of time
     /// </summary>
@@ -22,10 +22,6 @@ public class InventoryController : MonoBehaviour
     /// The index of the current selected item
     /// </summary>
     int currIndex = 0;
-    /// <summary>
-    /// Whether or not the animation for swapping inventory is finished
-    /// </summary>
-    public bool animFinished = true;
     /// <summary>
     /// Whether or not the item is already showing on screen
     /// </summary>
@@ -47,33 +43,23 @@ public class InventoryController : MonoBehaviour
         AddItem(hoe);
         AddItem(wateringCan);
 	}
-	
-	/// <summary>
-	/// Sets the currently selected item in the inventory
-	/// </summary>
-	void Update () 
-    {
-        currItem = (GameObject)inventory[currIndex];
-	}
 
     /// <summary>
     /// Moves through the inventory and wraps the inventory
     /// </summary>
     public void MoveInventory(float input)
     {
-        if (animFinished)
-        {
-            currIndex += (int)input;
+        currIndex += (int)input;
 
-            if (currIndex == -1)
-            {
-                currIndex = inventory.Count - 1;
-            }
-            if (currIndex >= inventory.Count)
-            {
-                currIndex = 0;
-            }
+        if (currIndex == -1)
+        {
+            currIndex = inventory.Count - 1;
         }
+        if (currIndex >= inventory.Count)
+        {
+            currIndex = 0;
+        }
+        currItem = (GameObject)inventory[currIndex];
     }
 
     /// <summary>
