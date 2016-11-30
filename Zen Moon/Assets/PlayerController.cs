@@ -28,14 +28,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     float walkH = 0;
     /// <summary>
-    /// Whether or not the hoe is equipped
-    /// </summary>
-    bool hoeEquip = false;
-    /// <summary>
-    /// Whether or not the wateringCan is equipped
-    /// </summary>
-    bool waterEquip = false;
-    /// <summary>
     /// Whether or not the animation has ended.
     /// </summary>
     bool animFinished = true;
@@ -82,6 +74,7 @@ public class PlayerController : MonoBehaviour
         walkH = Input.GetAxisRaw("Horizontal");
         float input = Input.GetAxisRaw("Inventory Scroll");
         float action = Input.GetAxis("Action");
+        float pick = Input.GetAxis("Pick");
 
         if (animFinished)
         {
@@ -105,6 +98,62 @@ public class PlayerController : MonoBehaviour
                 {
                     anim.SetBool("isWater", true);
                     //Change dirt to watered dirt
+                }
+                if (invCon.currItem.tag == "daikonSeeds")
+                {
+                    //play animation
+                    //change dirt to seeded dirt
+                }
+                if (invCon.currItem.tag == "leekSeeds")
+                {
+                    //play animation
+                    //change dirt to seeded dirt
+                }
+                if (invCon.currItem.tag == "cornSeeds")
+                {//play animation
+                    //change dirt to seeded dirt
+
+                }
+                if (invCon.currItem.tag == "riceSeeds")
+                {
+                    //play animation
+                    //change dirt to seeded dirt
+                }
+                if (invCon.currItem.tag == "diakon")
+                {
+                    //play animation
+                    //delete crop
+                }
+                if (invCon.currItem.tag == "leek")
+                {
+                    //play animation
+                    //delete crop
+                }
+                if (invCon.currItem.tag == "corn")
+                {
+                    //play animation
+                    //revert to earlier stage
+                }
+                if (invCon.currItem.tag == "rice")
+                {
+                    //play animation
+                    //revert to earlier stage
+                }
+                if (invCon.currItem.tag == "fence")
+                {
+                    //play animation
+                    //place fence
+                }
+            }
+            else if (pick != 0) //and there's something there and there's nothing in the player's hands
+            {
+                Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos, 1);
+                if(hit.collider != null)
+                {
+                    anim.SetBool("isPicking", true);
+                    invCon.AddItem(hit.collider.gameObject);
+                    Destroy(hit.collider.gameObject);
                 }
             }
             else
@@ -210,8 +259,19 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isHoe", false);
     }
 
+    /// <summary>
+    /// Triggers a transition when the watering can animation ends
+    /// </summary>
     public void WaterAnimEnd()
     {
         anim.SetBool("isWater", false);
+    }
+
+    /// <summary>
+    /// Triggers a transition when the picking up animation ends
+    /// </summary>
+    public void PickingAnimEnd()
+    {
+        anim.SetBool("isPicking", false);
     }
 }
