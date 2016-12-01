@@ -29,16 +29,25 @@ public class InventoryController : MonoBehaviour
     /// <summary>
     /// Whether or not the item is already showing on screen
     /// </summary>
-    bool isShowing = false;
-    public GameObject[] possibleItems;
+    public bool isShowing = false;
+    /// <summary>
+    /// The items that the player starts with
+    /// </summary>
+    public GameObject[] startItems;
 
 	/// <summary>
 	/// Adds certain starting items to inventory
 	/// </summary>
 	void Start () 
     {
-        AddItem(possibleItems[0]);
-        AddItem(possibleItems[1]);
+        foreach (GameObject item in startItems)
+        {
+            AddItem(item);
+        }
+        if (inventory[currIndex] != null)
+        {
+            currItem = (GameObject)inventory[currIndex];
+        }  
 	}
 
     /// <summary>
@@ -65,34 +74,54 @@ public class InventoryController : MonoBehaviour
     /// <param name="item">The item being added to the inventory</param>
     public void AddItem(GameObject item)
     {
-        bool inInventory = false;
-        int index = 0;
+        int index = CheckInventory(item);
 
-        
-        foreach(GameObject g in inventory)
+        if (index == -1)
         {
-            if (item.tag == g.tag)
-            {
-                index = inventory.IndexOf(g);
-                inInventory = true;
-            }
-        }
-
-        if (!inInventory)
-        {
-            for (int i = 0; i <= possibleItems.Length - 1; i++)
-            {
-                if (possibleItems[i].tag == item.tag)
-                {
-                    inventory.Add(possibleItems[i]);
-                    inventoryCount.Add(1);
-                }
-            }
+            Vector3 placement = new Vector3(0, 0, -11);
+            GameObject newItem = (GameObject)Instantiate(item, placement, Quaternion.identity);
+            inventory.Add(newItem);
+            inventoryCount.Add(1);
         }
         else if ((int)inventoryCount[index] <= 99)
         {
             inventoryCount[index] = (int)inventoryCount[index] + 1;
         }
+    }
+
+    /// <summary>
+    /// Checks if the item being added is already in the inventory
+    /// </summary>
+    /// <param name="item">The item being added</param>
+    /// <returns>The index of the item if it is already in the inventory, if it is not in the inventory it returns -1</returns>
+    private int CheckInventory(GameObject item)
+    {
+        foreach (GameObject g in inventory)
+        {
+            if (item.tag == "tool" && g.tag == "tool")
+            {
+                if (item.GetComponent<Tool>().toolType == g.GetComponent<Tool>().toolType)
+                {
+                    return inventory.IndexOf(g);
+                }
+            }
+            if (item.tag == "seeds" && g.tag == "seeds")
+            {
+                if (item.GetComponent<Seeds>().seedType == g.GetComponent<Seeds>().seedType)
+                {
+                    return inventory.IndexOf(g);
+                }
+            }
+            if (item.tag == "crop" && g.tag == "crop")
+            {
+                if (item.GetComponent<Crop>().cropType == g.GetComponent<Crop>().cropType)
+                {
+                    return inventory.IndexOf(g);
+                }
+            }
+        }
+
+        return -1;
     }
 
     /// <summary>
@@ -111,7 +140,7 @@ public class InventoryController : MonoBehaviour
     {
         if (!isShowing)
         {
-            Vector3 placement = new Vector3(0, transform.position.y + .5f, 0);
+            Vector3 placement = new Vector3(transform.position.x, transform.position.y + .5f, 0);
             tempObj = (GameObject)Instantiate(currItem, placement, Quaternion.identity);
             isShowing = true;
         } 

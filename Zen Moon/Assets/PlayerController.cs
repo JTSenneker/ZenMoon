@@ -7,10 +7,6 @@ using System.Collections;
 public class PlayerController : MonoBehaviour 
 {
     /// <summary>
-    /// The animator component on the player
-    /// </summary>
-    Animator anim;
-    /// <summary>
     /// The sprite renderer component on the player
     /// </summary>
     SpriteRenderer sr;
@@ -18,6 +14,10 @@ public class PlayerController : MonoBehaviour
     /// The player's Inventory Controller
     /// </summary>
     InventoryController invCon;
+    /// <summary>
+    /// The player's animation controller
+    /// </summary>
+    PlayerAnimationController animCon;
 
     /// <summary>
     /// The vertical direction of the player
@@ -28,9 +28,17 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     float walkH = 0;
     /// <summary>
-    /// Whether or not the animation has ended.
+    /// The switching inventory input
     /// </summary>
-    bool animFinished = true;
+    float switchInventory = 0;
+    /// <summary>
+    /// The action input
+    /// </summary>
+    float action = 0;
+    /// <summary>
+    /// The pick up input
+    /// </summary>
+    float pick = 0;
     /// <summary>
     /// The velocity of the player
     /// </summary>
@@ -60,7 +68,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void Start () 
     {
-        anim = GetComponent<Animator>();
+        animCon = GetComponent<PlayerAnimationController>();
         sr = GetComponent<SpriteRenderer>();
         invCon = GetComponent<InventoryController>();
 	}
@@ -72,51 +80,29 @@ public class PlayerController : MonoBehaviour
     {
         walkV = Input.GetAxisRaw("Vertical");
         walkH = Input.GetAxisRaw("Horizontal");
-        float input = Input.GetAxisRaw("Inventory Scroll");
-        float action = Input.GetAxis("Action");
-        float pick = Input.GetAxis("Pick");
+        switchInventory = Input.GetAxisRaw("Inventory Scroll");
+        action = Input.GetAxis("Action");
+        pick = Input.GetAxis("Pick");
 
-        if (animFinished)
+        if (animCon.animFinished)
         {
-            if (input != 0)
+            if (switchInventory != 0 && !invCon.isShowing)
             {
-                anim.SetBool("facingBack", false);
-                anim.SetBool("facingSide", false);
-                anim.SetBool("swappingInventory", true);
-                invCon.MoveInventory(input);
-                animFinished = false;
+                animCon.SwitchInventory();
+                invCon.MoveInventory(switchInventory);
                 invCon.ShowItem();
             }
+            #region needs fixing or refactoring or both
             else if (action != 0 && invCon.currItem != null)
             {
-                if (invCon.currItem.tag == "hoe")
+                if (invCon.currItem.tag == "tool")
                 {
-                    anim.SetBool("isHoe", true);
-                    //Change dirt to tilled dirt
+                    animCon.UseTool(invCon.currItem.GetComponent<Tool>().AnimVar());
+                    //Change the dirt accordingly
                 }
-                if (invCon.currItem.tag == "wateringCan")
+                if (invCon.currItem.tag == "seeds")
                 {
-                    anim.SetBool("isWater", true);
-                    //Change dirt to watered dirt
-                }
-                if (invCon.currItem.tag == "daikonSeeds")
-                {
-                    //play animation
-                    //change dirt to seeded dirt
-                }
-                if (invCon.currItem.tag == "leekSeeds")
-                {
-                    //play animation
-                    //change dirt to seeded dirt
-                }
-                if (invCon.currItem.tag == "cornSeeds")
-                {//play animation
-                    //change dirt to seeded dirt
-
-                }
-                if (invCon.currItem.tag == "riceSeeds")
-                {
-                    //play animation
+                    
                     //change dirt to seeded dirt
                 }
                 if (invCon.currItem.tag == "diakon")
@@ -145,13 +131,15 @@ public class PlayerController : MonoBehaviour
                     //place fence
                 }
             }
+            #endregion
             else if (pick != 0) //and there's something there and there's nothing in the player's hands
             {
+                //Will need changing when merged and able to look at grid system
                 Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos, 1);
                 if(hit.collider != null)
                 {
-                    anim.SetBool("isPicking", true);
+                    animCon.PickUp();
                     invCon.AddItem(hit.collider.gameObject);
                     Destroy(hit.collider.gameObject);
                 }
@@ -170,30 +158,23 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MovePlayer()
     {
-        anim.SetFloat("verticalSpeed", walkV);
-        anim.SetFloat("horizontalSpeed", Mathf.Abs(walkH));
-
         switch (movement)
         {
             case direction.forward:
-                anim.SetBool("facingBack", false);
-                anim.SetBool("facingSide", false);
+                animCon.SetWalkDir("verticalSpeed", walkV);
                 MoveVertical();
                 break;
             case direction.backward:
-                anim.SetBool("facingSide", false);
-                anim.SetBool("facingBack", true);
+                animCon.SetWalkDir("verticalSpeed", walkV);
                 MoveVertical();
                 break;
             case direction.left:
-                anim.SetBool("facingBack", false);
-                anim.SetBool("facingSide", true);
+                animCon.SetWalkDir("horizontalSpeed", Mathf.Abs(walkH));
                 sr.flipX = true;
                 MoveHorizontal();
                 break;
             case direction.right:
-                anim.SetBool("facingBack", false);
-                anim.SetBool("facingSide", true);
+                animCon.SetWalkDir("horizontalSpeed", Mathf.Abs(walkH));
                 sr.flipX = false;
                 MoveHorizontal();
                 break;
@@ -242,36 +223,10 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Triggers a transition when the inventory swap animation ends
+    /// Hides inventory item
     /// </summary>
-    public void InventorySwapEnd()
+    public void ItemHide()
     {
-        anim.SetBool("swappingInventory", false);
-        animFinished = true;
         invCon.HideItem();
-    }
-
-    /// <summary>
-    /// Triggers a transition when the hoe animation ends
-    /// </summary>
-    public void HoeAnimEnd()
-    {
-        anim.SetBool("isHoe", false);
-    }
-
-    /// <summary>
-    /// Triggers a transition when the watering can animation ends
-    /// </summary>
-    public void WaterAnimEnd()
-    {
-        anim.SetBool("isWater", false);
-    }
-
-    /// <summary>
-    /// Triggers a transition when the picking up animation ends
-    /// </summary>
-    public void PickingAnimEnd()
-    {
-        anim.SetBool("isPicking", false);
     }
 }

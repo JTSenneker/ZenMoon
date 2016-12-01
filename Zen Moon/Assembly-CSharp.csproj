@@ -45,9 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Crop.cs" />
      <Compile Include="Assets\DayNightController.cs" />
      <Compile Include="Assets\InventoryController.cs" />
+     <Compile Include="Assets\PlayerAnimationController.cs" />
      <Compile Include="Assets\PlayerController.cs" />
+     <Compile Include="Assets\Seeds.cs" />
+     <Compile Include="Assets\Tool.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
