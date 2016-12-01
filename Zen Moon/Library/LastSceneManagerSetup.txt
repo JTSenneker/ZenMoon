@@ -1,4 +1,5 @@
 sceneSetups:
+<<<<<<< master
 <<<<<<< josh
 <<<<<<< josh
 - path: Assets/GroundGeneration.unity
@@ -11,6 +12,9 @@ sceneSetups:
 =======
 - path: Assets/Main.unity
 >>>>>>> Made the code work together a little bit
+>>>>>>> Made the code work together a little bit
+=======
+- path: Assets/Main.unity
 >>>>>>> Made the code work together a little bit
   isLoaded: 1
   isActive: 1
