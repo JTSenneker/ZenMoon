@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< master
 <<<<<<< master
 0000.58087744.0000
@@ -10,3 +11,7 @@
 0000.57c821ea.0000
 0000.57c82212.0000
 >>>>>>> added player inventory, ability to plant seeds, water tiles (currently no logic with plants), plants grow as the day changes and bloom at a set time. need to add in ability to harvest plants, resetting some and getting paid for it (when day completes). also still need to figure out why it takes 2 clicks to till ground, not just one
+=======
+0000.57c821ea.0000
+0000.57c82212.0000
+>>>>>>> josh

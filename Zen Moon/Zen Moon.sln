@@ -1,14 +1,20 @@
+<<<<<<< HEAD
 <<<<<<< master
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
 Project("{E7FE8A73-8833-F400-74C0-C0B2D6F1D021}") = "Zen Moon", "Assembly-CSharp.csproj", "{0C977D86-521D-5AC6-9AB0-9C49215B1391}"
 =======
+=======
+>>>>>>> josh
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen Moon.CSharp", "Zen Moon.CSharp.csproj", "{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}"
+<<<<<<< HEAD
 >>>>>>> got the grid spawn working and the targeting helper to track correctly. May need some fine tuning with the size of the collider. Still need to add different 'ground' types, but that should be easily doable
+=======
+>>>>>>> josh
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,17 +22,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< HEAD
 <<<<<<< master
 		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Release|Any CPU.Build.0 = Release|Any CPU
 =======
+=======
+>>>>>>> josh
 		{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 >>>>>>> got the grid spawn working and the targeting helper to track correctly. May need some fine tuning with the size of the collider. Still need to add different 'ground' types, but that should be easily doable
+=======
+>>>>>>> josh
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
