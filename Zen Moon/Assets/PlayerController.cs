@@ -83,14 +83,15 @@ public class PlayerController : MonoBehaviour
         switchInventory = Input.GetAxisRaw("Inventory Scroll");
         action = Input.GetAxis("Action");
         pick = Input.GetAxis("Pick");
-
+        
         if (animCon.animFinished)
         {
-            if (switchInventory != 0 && !invCon.isShowing)
+            if (switchInventory != 0)
             {
-                animCon.SwitchInventory();
                 invCon.MoveInventory(switchInventory);
+                animCon.SwitchInventory();
                 invCon.ShowItem();
+                
             }
             #region needs fixing or refactoring or both
             else if (action != 0 && invCon.currItem != null)
@@ -102,34 +103,20 @@ public class PlayerController : MonoBehaviour
                 }
                 if (invCon.currItem.tag == "seeds")
                 {
-                    
+                    animCon.UseSeeds();
+                    invCon.RemoveItem(invCon.currItem);
+                    //if dirt is tilled
                     //change dirt to seeded dirt
                 }
-                if (invCon.currItem.tag == "diakon")
+                if(invCon.currItem.tag == "crop")
                 {
-                    //play animation
-                    //delete crop
+                    animCon.Throw();
                 }
-                if (invCon.currItem.tag == "leek")
-                {
-                    //play animation
-                    //delete crop
-                }
-                if (invCon.currItem.tag == "corn")
-                {
-                    //play animation
-                    //revert to earlier stage
-                }
-                if (invCon.currItem.tag == "rice")
-                {
-                    //play animation
-                    //revert to earlier stage
-                }
-                if (invCon.currItem.tag == "fence")
-                {
-                    //play animation
-                    //place fence
-                }
+                //if (invCon.currItem.tag == "fence")
+                //{
+                //    //play animation
+                //    //place fence
+                //}
             }
             #endregion
             else if (pick != 0) //and there's something there and there's nothing in the player's hands
@@ -227,6 +214,31 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ItemHide()
     {
+        if (invCon.currItem.tag != "crop")
+        {
+            invCon.HideItem();
+            animCon.withItem = false;
+        }
+        if (invCon.currItem.tag == "crop")
+        {
+            animCon.withItem = true;
+        }
+    }
+
+    /// <summary>
+    /// Controls throwing the crop
+    /// </summary>
+    public void CropThrow()
+    {
         invCon.HideItem();
+        invCon.RemoveItem(invCon.currItem);
+        if(invCon.currItem != null)
+        {
+            invCon.ShowItem();
+        }
+        else
+        {
+            animCon.ThrowAnimEnd();
+        }
     }
 }

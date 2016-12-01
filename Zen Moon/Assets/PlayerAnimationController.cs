@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the player's animations
+/// </summary>
 public class PlayerAnimationController : MonoBehaviour 
 {
     /// <summary>
@@ -11,6 +14,7 @@ public class PlayerAnimationController : MonoBehaviour
     /// Whether or not the animation has ended.
     /// </summary>
     public bool animFinished = true;
+    public bool withItem = false;
 
     /// <summary>
     /// Sets the animator component of the player
@@ -27,6 +31,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         anim.SetBool("facingBack", false);
         anim.SetBool("facingSide", false);
+        anim.SetBool("isWith", false);
         anim.SetBool("swappingInventory", true);
         animFinished = false;
     }
@@ -41,12 +46,30 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     /// <summary>
+    /// Triggers the animation for using seeds
+    /// </summary>
+    public void UseSeeds()
+    {
+        anim.SetBool("isSeed", true);
+        animFinished = false;
+    }
+
+    /// <summary>
     /// Triggers the animation for picking up an item
     /// </summary>
     public void PickUp()
     {
         anim.SetBool("isPicking", true);
         animFinished = false;
+    }
+
+    /// <summary>
+    /// Triggers the throw animation
+    /// </summary>
+    public void Throw()
+    {
+        anim.SetBool("isThrow", true);
+        GetComponent<PlayerController>().CropThrow();
     }
     
     /// <summary>
@@ -57,24 +80,49 @@ public class PlayerAnimationController : MonoBehaviour
     public void SetWalkDir(string var, float input)
     {
         anim.SetFloat(var, input);
-
-        if (var == "verticalSpeed")
+        if (!withItem)
         {
-            if (input > 0)
+            if (var == "verticalSpeed")
             {
-                anim.SetBool("facingSide", false);
-                anim.SetBool("facingBack", true);
+                if (input > 0)
+                {
+                    anim.SetBool("facingSide", false);
+                    anim.SetBool("facingBack", true);
+                }
+                else if (input < 0)
+                {
+                    anim.SetBool("facingBack", false);
+                    anim.SetBool("facingSide", false);
+                }
             }
-            else if (input < 0)
+            else if (var == "horizontalSpeed")
             {
                 anim.SetBool("facingBack", false);
-                anim.SetBool("facingSide", false);
+                anim.SetBool("facingSide", true);
             }
         }
-        else if (var == "horizontalSpeed")
+        else
         {
-            anim.SetBool("facingBack", false);
-            anim.SetBool("facingSide", true);
+            anim.SetBool("isWith", true);
+
+            if (var == "verticalSpeed")
+            {
+                if (input > 0)
+                {
+                    anim.SetBool("facingSideWith", false);
+                    anim.SetBool("facingBackWith", true);
+                }
+                else if (input < 0)
+                {
+                    anim.SetBool("facingBackWith", false);
+                    anim.SetBool("facingSideWith", false);
+                }
+            }
+            else if (var == "horizontalSpeed")
+            {
+                anim.SetBool("facingBackWith", false);
+                anim.SetBool("facingSideWith", true);
+            }
         }
     }
 
@@ -113,5 +161,22 @@ public class PlayerAnimationController : MonoBehaviour
     {
         anim.SetBool("isPicking", false);
         animFinished = true;
+    }
+
+    /// <summary>
+    /// Triggers a transition when the seed animation ends
+    /// </summary>
+    public void SeedAnimEnd()
+    {
+        anim.SetBool("isSeed", false);
+        animFinished = true;
+    }
+
+    /// <summary>
+    /// Triggers a tansition when the throw animation ends
+    /// </summary>
+    public void ThrowAnimEnd()
+    {
+        anim.SetBool("isWith", false);
     }
 }

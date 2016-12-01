@@ -128,9 +128,24 @@ public class InventoryController : MonoBehaviour
     /// removes an item from the inventory
     /// </summary>
     /// <param name="item">The item being removed</param>
-    void RemoveItem(GameObject item)
+    public void RemoveItem(GameObject item)
     {
-        inventory.Remove(item);
+        int index = inventory.IndexOf(item);
+
+        if (index != -1)
+        {
+            if ((int)inventoryCount[index] > 1)
+            {
+                inventoryCount[index] = (int)inventoryCount[index] - 1;
+            }
+            else if ((int)inventoryCount[index] == 1)
+            {
+                inventoryCount.Remove(inventoryCount[index]);
+                inventory.Remove(inventory[index]);
+                Destroy(currItem.gameObject);
+                currItem = null;
+            }
+        }
     }
 
     /// <summary>
@@ -143,7 +158,11 @@ public class InventoryController : MonoBehaviour
             Vector3 placement = new Vector3(transform.position.x, transform.position.y + .5f, 0);
             tempObj = (GameObject)Instantiate(currItem, placement, Quaternion.identity);
             isShowing = true;
-        } 
+            if (tempObj.tag == "crop")
+            {
+                tempObj.GetComponent<Crop>().Selected();
+            }
+        }
     }
 
     /// <summary>
@@ -151,6 +170,10 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public void HideItem()
     {
+        if(tempObj.tag == "crop")
+        {
+            tempObj.GetComponent<Crop>().NotSelected();
+        }
         Destroy(tempObj.gameObject);
         isShowing = false;
     }
