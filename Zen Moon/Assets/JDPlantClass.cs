@@ -10,7 +10,7 @@ public class JDPlantClass : MonoBehaviour {
     //bloomed means the plant can be harvested
     public bool bloomed;
     //has it been harvested yet?
-    public bool harvested = false;
+    public bool canBeHarvested = false;
     //does it stick around after being harvested?
     public bool destroyOnHarvest = true;
     //how much money is it worth?
@@ -40,7 +40,7 @@ public class JDPlantClass : MonoBehaviour {
         if (JDStaticVariables.dayCount == plantedTime + growthTime && !bloomed)
         {
             bloomed = true;
-            harvested = false;
+            canBeHarvested = true;
             transform.localScale *= 2;
         }
         
@@ -49,15 +49,25 @@ public class JDPlantClass : MonoBehaviour {
         //some plants stick around after being harvested
         //so if they have been harvested, they don't change until they bloom again
     }
-
+    /// <summary>
+    /// this function simply checks the 'bloomed' and 'canBeHarvested' bools to check if the plant is ready to be harvested
+    /// </summary>
+    /// <returns>returns true if the plant is ready to be harvested</returns>
+    public bool CanHarvest()
+    {
+        if (bloomed && canBeHarvested) return true;
+        return false;
+    }
     public void Harvest()
     {
         if (destroyOnHarvest)
         {
+            plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.dirt;
             Destroy(gameObject);
-        }else
+        }
+        else
         {
-            harvested = true;
+            canBeHarvested = false;
             plantedTime = JDStaticVariables.dayCount;
         }
     }
