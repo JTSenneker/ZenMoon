@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< josh
 - path: Assets/GroundGeneration.unity
+=======
+- path: Assets/_Scenes/MainMenu.unity
+>>>>>>> Save Game Data Script
   isLoaded: 1
   isActive: 1
