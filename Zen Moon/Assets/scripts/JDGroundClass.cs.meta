@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8ee4a70abdee34a4f94d7cd8dfaf0302
+timeCreated: 1480627291
+licenseType: Pro
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - occupiedWith: {instanceID: 0}
+  - dirt: {fileID: 21300000, guid: d12bf71d70fd96841bcb1177d395bcc8, type: 3}
+  - tilled: {fileID: 21300002, guid: d12bf71d70fd96841bcb1177d395bcc8, type: 3}
+  - water: {fileID: 21300004, guid: d12bf71d70fd96841bcb1177d395bcc8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

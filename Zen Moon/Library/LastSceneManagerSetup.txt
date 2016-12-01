@@ -1,8 +1,16 @@
 sceneSetups:
 <<<<<<< josh
+<<<<<<< josh
 - path: Assets/GroundGeneration.unity
 =======
 - path: Assets/_Scenes/MainMenu.unity
 >>>>>>> Save Game Data Script
+=======
+<<<<<<< master
+- path: Assets/_Scenes/MainMenu.unity
+=======
+- path: Assets/Main.unity
+>>>>>>> Made the code work together a little bit
+>>>>>>> Made the code work together a little bit
   isLoaded: 1
   isActive: 1

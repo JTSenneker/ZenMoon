@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< master
      <Compile Include="Assets\Crop.cs" />
      <Compile Include="Assets\DayNightController.cs" />
      <Compile Include="Assets\InventoryController.cs" />
@@ -60,6 +61,23 @@
      <Compile Include="Assets\Tool.cs" />
      <Compile Include="Assets\scripts\JDStaticVariables.cs" />
      <Compile Include="Assets\scripts\SavingAndLoading\MainController.cs" />
+=======
+     <Compile Include="Assets\scripts\Crop.cs" />
+     <Compile Include="Assets\scripts\DayNightController.cs" />
+     <Compile Include="Assets\scripts\GameController.cs" />
+     <Compile Include="Assets\scripts\InventoryController.cs" />
+     <Compile Include="Assets\scripts\JDGroundClass.cs" />
+     <Compile Include="Assets\scripts\JDGroundSpawner.cs" />
+     <Compile Include="Assets\scripts\JDMouseTargeting.cs" />
+     <Compile Include="Assets\scripts\JDPlantClass.cs" />
+     <Compile Include="Assets\scripts\JDStaticVariables.cs" />
+     <Compile Include="Assets\scripts\JDTargetingInteractions.cs" />
+     <Compile Include="Assets\scripts\JDTestCommands.cs" />
+     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
+     <Compile Include="Assets\scripts\PlayerController.cs" />
+     <Compile Include="Assets\scripts\Seeds.cs" />
+     <Compile Include="Assets\scripts\Tool.cs" />
+>>>>>>> Made the code work together a little bit
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
