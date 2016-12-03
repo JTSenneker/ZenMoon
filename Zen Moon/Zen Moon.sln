@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{E7FE8A73-8833-F400-74C0-C0B2D6F1D021}") = "Zen Moon", "Assembly-CSharp.csproj", "{0C977D86-521D-5AC6-9AB0-9C49215B1391}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen Moon", "Zen Moon.csproj", "{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C977D86-521D-5AC6-9AB0-9C49215B1391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
