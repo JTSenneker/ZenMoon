@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour
 {
     public GameObject grid;
     public GameObject player;
+    public GameObject seeds;
     JDGroundSpawner gridCon;
     PlayerController playerCon;
 
@@ -26,12 +27,27 @@ public class GameController : MonoBehaviour
             }
             if (playerCon.invCon.currItem.tag == "seeds")
             {
-                //place seeds onto the dirt tile
+                PlaceSeeds();
             }
             
             playerCon.isInteracting = false;
         }
 	}
+
+    void PlaceSeeds()
+    {
+        GameObject tile = JDMouseTargeting.target;
+
+        if (tile != null)
+        {
+            JDStaticVariables.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
+            if (tileType == JDStaticVariables.tiles.tilledDirt)
+            {
+                GameObject newSeeds = (GameObject)Instantiate(seeds, tile.transform.position, Quaternion.identity);
+                newSeeds.GetComponent<Seeds>().seedType = playerCon.invCon.currItem.GetComponent<Seeds>().seedType;
+            }
+        }
+    }
 
     void SwitchTile()
     {
@@ -47,20 +63,6 @@ public class GameController : MonoBehaviour
             if (playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.wateringCan && tileType == JDStaticVariables.tiles.tilledDirt)
             {
                 tile.GetComponent<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.watered;
-            }
-        }
-    }
-
-    void AddSeeds()
-    {
-        GameObject tile = JDMouseTargeting.target;
-        
-        if (tile != null)
-        {
-            JDStaticVariables.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
-            if (tileType == JDStaticVariables.tiles.tilledDirt)
-            {
-
             }
         }
     }

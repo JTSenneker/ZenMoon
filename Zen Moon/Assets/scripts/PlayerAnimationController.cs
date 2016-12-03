@@ -32,8 +32,10 @@ public class PlayerAnimationController : MonoBehaviour
     /// </summary>
     public void SwitchInventory()
     {
-        anim.SetBool("facingBack", false);
+        anim.SetFloat("horizontalSpeed", 0);
+        anim.SetFloat("verticalSpeed", 0);
         anim.SetBool("facingSide", false);
+        anim.SetBool("facingBack", false);
         anim.SetBool("isWith", false);
         anim.SetBool("swappingInventory", true);
         animFinished = false;

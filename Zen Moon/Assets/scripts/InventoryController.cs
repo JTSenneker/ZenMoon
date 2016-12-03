@@ -34,6 +34,10 @@ public class InventoryController : MonoBehaviour
     /// The items that the player starts with
     /// </summary>
     public GameObject[] startItems;
+    /// <summary>
+    /// Testing variable
+    /// </summary>
+    public int[] itemCount;
 
 	/// <summary>
 	/// Adds certain starting items to inventory
@@ -44,11 +48,29 @@ public class InventoryController : MonoBehaviour
         {
             AddItem(item);
         }
+        foreach (int itemC in itemCount)
+        {
+            inventoryCount.Add(itemC);
+        }
         if (inventory[currIndex] != null)
         {
             currItem = (GameObject)inventory[currIndex];
         }  
 	}
+
+    /// <summary>
+    /// removes items that have an inventory count of zero
+    /// </summary>
+    void FixedUpdate()
+    {
+        if (currIndex != -1)
+        {
+            if ((int)inventoryCount[currIndex] == 0)
+            {
+                RemoveItem(currItem);
+            }
+        }
+    }
 
     /// <summary>
     /// Moves through the inventory and wraps the inventory
@@ -81,7 +103,7 @@ public class InventoryController : MonoBehaviour
             Vector3 placement = new Vector3(0, 0, -11);
             GameObject newItem = (GameObject)Instantiate(item, placement, Quaternion.identity);
             inventory.Add(newItem);
-            inventoryCount.Add(1);
+            //inventoryCount.Add(1);
         }
         else if ((int)inventoryCount[index] <= 99)
         {
@@ -131,19 +153,19 @@ public class InventoryController : MonoBehaviour
     public void RemoveItem(GameObject item)
     {
         int index = inventory.IndexOf(item);
-
+        
         if (index != -1)
         {
-            if ((int)inventoryCount[index] > 1)
+            if ((int)inventoryCount[index] > 0)
             {
                 inventoryCount[index] = (int)inventoryCount[index] - 1;
             }
-            else if ((int)inventoryCount[index] == 1)
+            else if ((int)inventoryCount[index] == 0)
             {
                 inventoryCount.Remove(inventoryCount[index]);
                 inventory.Remove(inventory[index]);
                 Destroy(currItem.gameObject);
-                currItem = null;
+                MoveInventory(-1);
             }
         }
     }
@@ -155,7 +177,7 @@ public class InventoryController : MonoBehaviour
     {
         if (!isShowing)
         {
-            Vector3 placement = new Vector3(transform.position.x, transform.position.y + .5f, 0);
+            Vector3 placement = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
             tempObj = (GameObject)Instantiate(currItem, placement, Quaternion.identity);
             isShowing = true;
             if (tempObj.tag == "crop")

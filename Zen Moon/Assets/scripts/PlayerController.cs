@@ -6,8 +6,6 @@ using System.Collections;
 /// </summary>
 public class PlayerController : MonoBehaviour 
 {
-    //TODO: Make a stop player walking when an action button is hit instead of just putting it into an if statement, might help out a bit more
-
     /// <summary>
     /// The sprite renderer component on the player
     /// </summary>
@@ -95,11 +93,13 @@ public class PlayerController : MonoBehaviour
         {
             if (switchInventory != 0)
             {
+                walkV = 0;
+                walkH = 0;
+                movement = direction.forward;
                 invCon.MoveInventory(switchInventory);
                 animCon.SwitchInventory();
                 invCon.ShowItem();
             }
-            #region needs fixing or refactoring or both
             else if (action != 0 && invCon.currItem != null)
             {
                 if (invCon.currItem.tag == "tool")
@@ -109,10 +109,9 @@ public class PlayerController : MonoBehaviour
                 }
                 if (invCon.currItem.tag == "seeds")
                 {
-                    animCon.UseSeeds();
                     invCon.RemoveItem(invCon.currItem);
-                    //if dirt is tilled
-                    //change dirt to seeded dirt
+                    animCon.UseSeeds();
+                    isInteracting = true;
                 }
                 if(invCon.currItem.tag == "crop")
                 {
@@ -124,7 +123,6 @@ public class PlayerController : MonoBehaviour
                 //    //place fence
                 //}
             }
-            #endregion
             else if (pick != 0) //and there's something there and there's nothing in the player's hands
             {
                 //Will need changing when merged and able to look at grid system
@@ -140,10 +138,9 @@ public class PlayerController : MonoBehaviour
             else
             {
                 MovePlayer();
+                CheckDirection();
             }
         }
-
-        CheckDirection();
 	}
 
     /// <summary>

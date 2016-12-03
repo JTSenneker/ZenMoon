@@ -1,5 +1,6 @@
 Base path: C:/Program Files/Unity/Editor/Data
 Cmd: getPlatforms
+<<<<<<< master
 Cmd: compileSnippet
 <<<<<<< master
 <<<<<<< master
@@ -85,3 +86,5 @@ Cmd: compileSnippet
 >>>>>>> Made the code work together a little bit
 =======
 >>>>>>> Made the code work together a little bit
+=======
+>>>>>>> Did some bug fixed on the player and the inventory

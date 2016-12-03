@@ -1,4 +1,5 @@
 <<<<<<< master
+<<<<<<< master
 <<<<<<< josh
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
@@ -15,6 +16,12 @@ Project("{E7FE8A73-8833-F400-74C0-C0B2D6F1D021}") = "Zen Moon", "Assembly-CSharp
 >>>>>>> Save Game Data Script
 =======
 >>>>>>> Made the code work together a little bit
+=======
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zen Moon", "Zen Moon.csproj", "{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}"
+>>>>>>> Did some bug fixed on the player and the inventory
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +29,7 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+<<<<<<< master
 <<<<<<< master
 <<<<<<< josh
 		{3992F5D7-C3A7-856C-286D-FD5FC26F6C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -39,11 +47,14 @@ Global
 >>>>>>> Save Game Data Script
 =======
 >>>>>>> Made the code work together a little bit
+=======
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E9FF8E3-5665-1A46-EEA9-3190F3F77A8E}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> Did some bug fixed on the player and the inventory
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
