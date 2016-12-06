@@ -9,11 +9,11 @@ public class DayNightController : MonoBehaviour
     /// <summary>
     /// The time the day lasts in minutes
     /// </summary>
-    public int dayTime = 5;
+    public float dayTime = 5;
     /// <summary>
     /// The time the night lasts in minutes
     /// </summary>
-    public int nightTime = 3;
+    public float nightTime = 3;
     /// <summary>
     /// How many seconds are in a minute
     /// </summary>
@@ -21,7 +21,7 @@ public class DayNightController : MonoBehaviour
     /// <summary>
     /// The Timer that counts down the minutes
     /// </summary>
-    float Timer;
+    public float Timer;
     /// <summary>
     /// Whether or not it is day time
     /// </summary>
@@ -46,11 +46,14 @@ public class DayNightController : MonoBehaviour
         {
             if (isDay)
             {
+                print("saving...");
+                SaveLoadController.Save();
                 Timer = nightTime * secsInMin;
                 isDay = false;
             }
             else if (!isDay)
             {
+                JDStaticVariables.DayChange();
                 Timer = dayTime * secsInMin;
                 isDay = true;
             }

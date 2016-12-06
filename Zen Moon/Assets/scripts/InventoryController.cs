@@ -19,6 +19,10 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public GameObject currItem = null;
     /// <summary>
+    /// The previous item selected
+    /// </summary>
+    public GameObject prevItem = null;
+    /// <summary>
     /// The selected item that shows up on the screen for a small amount of time
     /// </summary>
     GameObject tempObj;
@@ -72,6 +76,35 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public ArrayList GetInventory ()
+    {
+        ArrayList invString = new ArrayList();
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            GameObject temp = (GameObject)inventory[i];
+            print(temp.name);
+            invString.Add(temp.name);
+        }
+        return invString;
+    }
+
+    public void SetInventory(ArrayList inv)
+    {
+        inventory.Clear();
+        
+        InventoryItems invIt = GetComponent<InventoryItems>();
+        for (int i = 0; i < inv.Count; i++)
+        {
+            for (int j = 0; j < invIt.pItemNames.Length; j++)
+            {
+                if ((string)inv[i] == invIt.pItemNames[j]+"(Clone)")
+                {
+                    AddItem(invIt.possibleItems[j]);
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Moves through the inventory and wraps the inventory
     /// </summary>
@@ -87,6 +120,7 @@ public class InventoryController : MonoBehaviour
         {
             currIndex = 0;
         }
+        prevItem = currItem;
         currItem = (GameObject)inventory[currIndex];
     }
 

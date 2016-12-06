@@ -14,6 +14,15 @@ public class GameController : MonoBehaviour
     {
         gridCon = grid.GetComponent<JDGroundSpawner>();
         playerCon = player.GetComponent<PlayerController>();
+
+        SaveLoadController.setPlayer(player);
+        SaveLoadController.setInvCon(playerCon.invCon);
+
+        if (SaveLoadController.contin)
+        {
+            print("Loading");
+            SaveLoadController.Load();
+        }
 	}
 	
 	// Update is called once per frame

@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     /// The player's animation controller
     /// </summary>
     PlayerAnimationController animCon;
+    public LayerMask layerMask;
 
     /// <summary>
     /// Whether or not the player is interacting with the ground
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour
         switchInventory = Input.GetAxisRaw("Inventory Scroll");
         action = Input.GetAxis("Action");
         pick = Input.GetAxis("Pick");
-
+        
         if (animCon.animFinished)
         {
             if (switchInventory != 0)
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 //Will need changing when merged and able to look at grid system
                 Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos, 1);
-                if(hit.collider != null)
+                if (hit.collider != null)
                 {
                     animCon.PickUp();
                     invCon.AddItem(hit.collider.gameObject);

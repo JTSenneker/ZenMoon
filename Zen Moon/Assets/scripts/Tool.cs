@@ -17,10 +17,8 @@ public class Tool : MonoBehaviour {
         {
             case ToolType.hoe:
                 return "isHoe";
-                break;
             case ToolType.wateringCan:
                 return "isWater";
-                break;
         }
         return null;
     }
