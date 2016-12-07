@@ -68,9 +68,12 @@
     <Compile Include="Assets\scripts\CameraController.cs" />
     <Compile Include="Assets\scripts\CollisionController.cs" />
     <Compile Include="Assets\scripts\CreateBoundary.cs" />
+<<<<<<< master
 =======
     <Compile Include="Assets\scripts\CameraController.cs" />
 >>>>>>> Working on Saveing game data
+=======
+>>>>>>> Did some bug fixing and added to the save function
     <Compile Include="Assets\scripts\Crop.cs" />
     <Compile Include="Assets\scripts\DayNightController.cs" />
     <Compile Include="Assets\scripts\Fence.cs" />
