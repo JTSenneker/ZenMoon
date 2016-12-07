@@ -18,6 +18,10 @@ public class InventoryPanel : MonoBehaviour
     /// The current item the player has selected
     /// </summary>
     GameObject item = null;
+    /// <summary>
+    /// The current amount of the item the player has selected
+    /// </summary>
+    int itemCount = 0;
 
 	/// <summary>
     /// Sets the inventory controller

@@ -219,6 +219,7 @@ public class InventoryController : MonoBehaviour
             if ((int)inventoryCount[index] > 0)
             {
                 inventoryCount[index] = (int)inventoryCount[index] - 1;
+                print(inventoryCount[index]);
             }
             else if ((int)inventoryCount[index] == 0)
             {

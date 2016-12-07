@@ -28,15 +28,15 @@ public class CreateBoundary : MonoBehaviour {
         {
             Vector2 rightBoundPlace = new Vector2(-1, i);
             Vector2 leftBoundPlace = new Vector2(gridWidth, i);
-            GameObject rightBound = (GameObject)Instantiate(boundary, rightBoundPlace, Quaternion.identity);
-            GameObject leftBound = (GameObject)Instantiate(boundary, leftBoundPlace, Quaternion.identity);
+            Instantiate(boundary, rightBoundPlace, Quaternion.identity);
+            Instantiate(boundary, leftBoundPlace, Quaternion.identity);
         }
         for (int i = 0; i < gridWidth; i++)
         {
             Vector2 topBoundPlace = new Vector2(i, -1);
             Vector2 bottomBoundPlace = new Vector2(i, gridHeight);
-            GameObject topBound = (GameObject)Instantiate(boundary, topBoundPlace, Quaternion.identity);
-            GameObject bottomBound = (GameObject)Instantiate(boundary, bottomBoundPlace, Quaternion.identity);
+            Instantiate(boundary, topBoundPlace, Quaternion.identity);
+            Instantiate(boundary, bottomBoundPlace, Quaternion.identity);
         }
 	}
 }

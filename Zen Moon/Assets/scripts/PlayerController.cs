@@ -112,15 +112,16 @@ public class PlayerController : MonoBehaviour
                     animCon.UseTool(invCon.currItem.GetComponent<Tool>().AnimVar());
                     isInteracting = true;
                 }
-                if (invCon.currItem.tag == "seeds")
+                else if (invCon.currItem.tag == "seeds")
                 {
                     invCon.RemoveItem(invCon.currItem);
                     animCon.UseSeeds();
                     isInteracting = true;
                 }
-                if(invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
+                else if(invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
                 {
                     animCon.Throw();
+                    isInteracting = true;
                 }
             }
             else if (pick != 0) //and there's something there and there's nothing in the player's hands

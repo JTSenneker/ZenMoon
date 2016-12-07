@@ -57,14 +57,31 @@ public class GameController : MonoBehaviour
             {
                 SwitchTile();
             }
-            if (playerCon.invCon.currItem.tag == "seeds")
+            else if (playerCon.invCon.currItem.tag == "seeds")
             {
                 PlaceSeeds();
+            }
+            else if (playerCon.invCon.currItem.tag == "crop" || playerCon.invCon.currItem.tag == "fence")
+            {
+                PlaceItems();
             }
             
             playerCon.isInteracting = false;
         }
 	}
+
+    /// <summary>
+    /// Places down an item that is being thrown
+    /// </summary>
+    void PlaceItems()
+    {
+        GameObject tile = JDMouseTargeting.target;
+        GameObject item = playerCon.invCon.currItem;
+        if (tile != null)
+        {
+            GameObject newItem = (GameObject)Instantiate(item, tile.transform.position, Quaternion.identity);
+        }
+    }
 
     /// <summary>
     /// Places seeds on the grid

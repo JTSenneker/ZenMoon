@@ -2,6 +2,7 @@ sceneSetups:
 <<<<<<< master
 <<<<<<< master
 <<<<<<< master
+<<<<<<< master
 <<<<<<< josh
 <<<<<<< josh
 - path: Assets/GroundGeneration.unity
@@ -24,5 +25,8 @@ sceneSetups:
 =======
 - path: Assets/AllisonTest.unity
 >>>>>>> Did some bug fixing and added to the save function
+=======
+- path: Assets/Main.unity
+>>>>>>> fences can now be placed
   isLoaded: 1
   isActive: 1
