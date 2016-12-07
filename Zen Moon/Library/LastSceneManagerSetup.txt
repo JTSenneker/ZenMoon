@@ -1,6 +1,7 @@
 sceneSetups:
 <<<<<<< master
 <<<<<<< master
+<<<<<<< master
 <<<<<<< josh
 <<<<<<< josh
 - path: Assets/GroundGeneration.unity
@@ -20,5 +21,8 @@ sceneSetups:
 =======
 - path: Assets/Start.unity
 >>>>>>> Working on Saveing game data
+=======
+- path: Assets/AllisonTest.unity
+>>>>>>> Did some bug fixing and added to the save function
   isLoaded: 1
   isActive: 1

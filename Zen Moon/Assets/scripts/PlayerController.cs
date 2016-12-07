@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
     /// The player's animation controller
     /// </summary>
     PlayerAnimationController animCon;
-    public LayerMask layerMask;
+    /// <summary>
+    /// The player's collision controller
+    /// </summary>
+    CollisionController colCon;
 
     /// <summary>
     /// Whether or not the player is interacting with the ground
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// How fast the player goes per frame
     /// </summary>
-    float speed = 0;
+    Vector3 speed = new Vector3(0, 0, 0);
     /// <summary>
     /// The direction the player is facing
     /// </summary>
@@ -77,6 +80,7 @@ public class PlayerController : MonoBehaviour
         animCon = GetComponent<PlayerAnimationController>();
         sr = GetComponent<SpriteRenderer>();
         invCon = GetComponent<InventoryController>();
+        colCon = GetComponent<CollisionController>();
 	}
 	
 	/// <summary>
@@ -114,15 +118,10 @@ public class PlayerController : MonoBehaviour
                     animCon.UseSeeds();
                     isInteracting = true;
                 }
-                if(invCon.currItem.tag == "crop")
+                if(invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
                 {
                     animCon.Throw();
                 }
-                //if (invCon.currItem.tag == "fence")
-                //{
-                //    //play animation
-                //    //place fence
-                //}
             }
             else if (pick != 0) //and there's something there and there's nothing in the player's hands
             {
@@ -177,8 +176,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MoveHorizontal()
     {
-        speed = walkH * velocity * Time.deltaTime;
-        transform.position += new Vector3(speed, 0, 0);
+        speed.x = walkH * velocity * Time.deltaTime;
+        colCon.Move(ref speed);
+        transform.position += new Vector3(speed.x, 0, 0);
     }
 
     /// <summary>
@@ -186,8 +186,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MoveVertical()
     {
-        speed = walkV * velocity * Time.deltaTime;
-        transform.position += new Vector3(0, speed, 0);
+        speed.y = walkV * velocity * Time.deltaTime;
+        colCon.Move(ref speed);
+        transform.position += new Vector3(0, speed.y, 0);
     }
 
     /// <summary>
@@ -218,12 +219,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ItemHide()
     {
-        if (invCon.currItem.tag != "crop")
+        if (invCon.currItem.tag != "crop" && invCon.currItem.tag != "fence")
         {
             invCon.HideItem();
             animCon.withItem = false;
         }
-        if (invCon.currItem.tag == "crop")
+        if (invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
         {
             animCon.withItem = true;
         }
@@ -232,7 +233,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Controls throwing the crop
     /// </summary>
-    public void CropThrow()
+    public void ItemThrow()
     {
         invCon.HideItem();
         invCon.RemoveItem(invCon.currItem);

@@ -64,8 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\CollisionController.cs" />
+    <Compile Include="Assets\scripts\CreateBoundary.cs" />
     <Compile Include="Assets\scripts\Crop.cs" />
     <Compile Include="Assets\scripts\DayNightController.cs" />
+    <Compile Include="Assets\scripts\Fence.cs" />
     <Compile Include="Assets\scripts\GameController.cs" />
     <Compile Include="Assets\scripts\InventoryController.cs" />
     <Compile Include="Assets\scripts\InventoryItems.cs" />

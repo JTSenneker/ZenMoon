@@ -2,25 +2,10 @@
 using System.Collections;
 
 /// <summary>
-/// Defines a Crop
+/// Describes a fence
 /// </summary>
-public class Crop : MonoBehaviour 
-{
-    /// <summary>
-    /// The different types of crops
-    /// </summary>
-	public enum CropType
-    {
-        daikon,
-        leek,
-        corn,
-        rice
-    }
-
-    /// <summary>
-    /// The type of crop an individual crop is
-    /// </summary>
-    public CropType cropType;
+public class Fence : MonoBehaviour
+{ 
     /// <summary>
     /// If the crop is currently selected or not
     /// </summary>
@@ -31,7 +16,7 @@ public class Crop : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(isSelected)
+        if (isSelected)
         {
             Vector3 PlayerPos = GameObject.Find("Player").transform.position;
             transform.position = new Vector3(PlayerPos.x, PlayerPos.y + .5f, PlayerPos.z);

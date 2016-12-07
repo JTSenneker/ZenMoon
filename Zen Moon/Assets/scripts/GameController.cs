@@ -1,15 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the Game elements
+/// </summary>
 public class GameController : MonoBehaviour
 {
+    /// <summary>
+    /// The grid
+    /// </summary>
     public GameObject grid;
+    /// <summary>
+    /// The player
+    /// </summary>
     public GameObject player;
+    /// <summary>
+    /// A reference to the seeds object
+    /// </summary>
     public GameObject seeds;
+    /// <summary>
+    /// A reference to the grid spawner
+    /// </summary>
     JDGroundSpawner gridCon;
+    /// <summary>
+    /// A reference to the player controller
+    /// </summary>
     PlayerController playerCon;
 
-	// Use this for initialization
+	/// <summary>
+    /// Sets the grid controller and the player controller and sets objects for the save mechanic
+    /// </summary>
 	void Start ()
     {
         gridCon = grid.GetComponent<JDGroundSpawner>();
@@ -17,6 +37,7 @@ public class GameController : MonoBehaviour
 
         SaveLoadController.setPlayer(player);
         SaveLoadController.setInvCon(playerCon.invCon);
+        SaveLoadController.setGrid(gridCon);
 
         if (SaveLoadController.contin)
         {
@@ -25,7 +46,9 @@ public class GameController : MonoBehaviour
         }
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// Finds out if the player is interacting with the grid
+    /// </summary>
 	void Update ()
     { 
         if(playerCon.isInteracting)
@@ -43,6 +66,9 @@ public class GameController : MonoBehaviour
         }
 	}
 
+    /// <summary>
+    /// Places seeds on the grid
+    /// </summary>
     void PlaceSeeds()
     {
         GameObject tile = JDMouseTargeting.target;
@@ -58,6 +84,9 @@ public class GameController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switches the tiles according to what tool the player is using to interact with the grid
+    /// </summary>
     void SwitchTile()
     {
         GameObject tile = JDMouseTargeting.target;

@@ -1,19 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the Inventory panel
+/// </summary>
 public class InventoryPanel : MonoBehaviour
 {
+    /// <summary>
+    /// The player
+    /// </summary>
     public GameObject player;
+    /// <summary>
+    /// The inventory Controller on the player
+    /// </summary>
     InventoryController invCon;
+    /// <summary>
+    /// The current item the player has selected
+    /// </summary>
     GameObject item = null;
 
-	// Use this for initialization
+	/// <summary>
+    /// Sets the inventory controller
+    /// </summary>
 	void Start ()
     {
         invCon = player.GetComponent<InventoryController>();
 	}
 	
-	// Update is called once per frame
+	/// <summary>
+    /// switches the inventory items when the player selects a new item
+    /// </summary>
 	void Update ()
     {
         if(invChanged())
@@ -23,6 +39,10 @@ public class InventoryPanel : MonoBehaviour
         }
 	}
 
+    /// <summary>
+    /// Whether or not the currently selected item has changed
+    /// </summary>
+    /// <returns>True or False depending on if the item has changed</returns>
     bool invChanged()
     {
         if (invCon.currItem != invCon.prevItem)
@@ -33,6 +53,9 @@ public class InventoryPanel : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Deletes the current item on the panel
+    /// </summary>
     void hideItem()
     {
         if(item != null)
@@ -41,6 +64,9 @@ public class InventoryPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Shows the item that is now selected by the player into the panel
+    /// </summary>
     void showItem()
     {
         if (invCon.currItem != null)

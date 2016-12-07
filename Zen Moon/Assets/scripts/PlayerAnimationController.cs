@@ -74,7 +74,7 @@ public class PlayerAnimationController : MonoBehaviour
     public void Throw()
     {
         anim.SetBool("isThrow", true);
-        GetComponent<PlayerController>().CropThrow();
+        GetComponent<PlayerController>().ItemThrow();
     }
     
     /// <summary>
