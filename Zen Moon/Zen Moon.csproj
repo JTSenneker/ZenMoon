@@ -98,12 +98,16 @@
     <Compile Include="Assets\scripts\JDTargetingInteractions.cs" />
     <Compile Include="Assets\scripts\JDTestCommands.cs" />
 <<<<<<< master
+<<<<<<< master
     <Compile Include="Assets\scripts\NightController.cs" />
     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
     <Compile Include="Assets\scripts\SaveControl.cs" />
     <Compile Include="Assets\scripts\SaveLoadController.cs" />
 =======
+=======
+    <Compile Include="Assets\scripts\NightController.cs" />
+>>>>>>> fences can now be placed
     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
 <<<<<<< master
