@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class JDPlantClass : MonoBehaviour {
+public class JDPlantClass : MonoBehaviour
+{
 
     //how long it grows for
     public int growthTime;
@@ -18,11 +19,46 @@ public class JDPlantClass : MonoBehaviour {
     //the tile this plant is 'planted' on
     public GameObject plantedTile;
 
+    /// <summary>
+    /// Possible types of crops
+    /// </summary>
+    public enum SeedType
+    {
+        daikon,
+        leek,
+        corn,
+        rice
+    }
 
-	// Use this for initialization
-	void Start () {
+    /// <summary>
+    /// The type of crop this plant is
+    /// </summary>
+    public SeedType seedType;
 
-	}
+
+    // Use this for initialization
+    void Start ()
+    {
+        switch (seedType)
+        {
+            case SeedType.daikon:
+                moneyValue = 20;
+                growthTime = 4;
+                break;
+            case SeedType.leek:
+                moneyValue = 40;
+                growthTime = 5;
+                break;
+            case SeedType.corn:
+                moneyValue = 60;
+                growthTime = 7;
+                break;
+            case SeedType.rice:
+                moneyValue = 80;
+                growthTime = 10;
+                break;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -40,13 +76,13 @@ public class JDPlantClass : MonoBehaviour {
         {
             bloomed = true;
             canBeHarvested = true;
-            transform.localScale *= 2;
+            //transform.localScale *= 2;
         }
         //this part is for harvesting a plant that can be gotten more than once
         if(bloomed && destroyOnHarvest == false && growingDays == growthTime && !canBeHarvested)
         {
             canBeHarvested = true;
-            transform.localScale *= 2;
+            //transform.localScale *= 2;
         }
         
         
@@ -54,6 +90,7 @@ public class JDPlantClass : MonoBehaviour {
         //some plants stick around after being harvested
         //so if they have been harvested, they don't change until they bloom again
     }
+
     /// <summary>
     /// this function simply checks the 'bloomed' and 'canBeHarvested' bools to check if the plant is ready to be harvested
     /// </summary>
@@ -63,6 +100,7 @@ public class JDPlantClass : MonoBehaviour {
         if (bloomed && canBeHarvested) return true;
         return false;
     }
+
     /// <summary>
     /// this function is run when the player tries to harvest this plant
     /// if the plant is supposed to be destroyed, then the tile is set to base dirt
@@ -76,7 +114,7 @@ public class JDPlantClass : MonoBehaviour {
     {
         if (destroyOnHarvest)
         {
-            plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.dirt;
+            plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus = JDGroundClass.tiles.dirt;
             plantedTile.GetComponentInChildren<JDGroundClass>().occupiedWith = null;
             Destroy(gameObject);
         }
@@ -86,6 +124,7 @@ public class JDPlantClass : MonoBehaviour {
             growingDays = 0;
         }
     }
+
     /// <summary>
     /// this function has the plant test if the tile it's planted on has been watered
     /// and if so, increments the growth time
@@ -93,7 +132,7 @@ public class JDPlantClass : MonoBehaviour {
     /// <returns>true if the plant can grow, (the tile is watered)</returns>
     public bool Grow()
     {
-        if(plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus == JDStaticVariables.tiles.watered)
+        if(plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus == JDGroundClass.tiles.watered)
         {
             growingDays ++;
             return true;
