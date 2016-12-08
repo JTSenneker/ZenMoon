@@ -4,7 +4,7 @@ using System.Collections;
 public class JDGroundClass : MonoBehaviour {
 
     //the current status of this tile, tilled, seeded, etc
-    public JDStaticVariables.tiles _tileStatus;
+    public tiles _tileStatus;
     //what this tile has placed/planted ontop of it
     public GameObject occupiedWith;
     /// <summary>
@@ -23,6 +23,16 @@ public class JDGroundClass : MonoBehaviour {
     /// The watered dirt sprite
     /// </summary>
     public Sprite watered;
+
+    /// <summary>
+    /// Types of possible dirt tiles
+    /// </summary>
+    public enum tiles
+    {
+        dirt,
+        tilled,
+        watered
+    }
 
     /// <summary>
     /// Might be easier if you put your enumerator into this class for the dirt tiles also a bit better organized.
@@ -44,13 +54,13 @@ public class JDGroundClass : MonoBehaviour {
     {
         switch (_tileStatus)
         {
-            case JDStaticVariables.tiles.dirt:
+            case tiles.dirt:
                 spriteRend.sprite = dirt;
                 break;
-            case JDStaticVariables.tiles.tilledDirt:
+            case tiles.tilled:
                 spriteRend.sprite = tilled;
                 break;
-            case JDStaticVariables.tiles.watered:
+            case tiles.watered:
                 spriteRend.sprite = watered;
                 break;
         }

@@ -58,7 +58,7 @@ public class JDMouseTargeting : MonoBehaviour {
     /// </summary>
     /// <param name="target"> the tile we want the status of</param>
     /// <returns>return the status of the tile</returns>
-  public static JDStaticVariables.tiles GetGroundTile(GameObject target)
+    public static JDGroundClass.tiles GetGroundTile(GameObject target)
     {
         //print(target.GetComponentInChildren<JDGroundClass>()._tileStatus);
         return target.GetComponentInChildren<JDGroundClass>()._tileStatus;

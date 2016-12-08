@@ -189,7 +189,7 @@ public class InventoryController : MonoBehaviour
             }
             if (item.tag == "seeds" && g.tag == "seeds")
             {
-                if (item.GetComponent<Seeds>().seedType == g.GetComponent<Seeds>().seedType)
+                if (item.GetComponent<JDPlantClass>().seedType == g.GetComponent<JDPlantClass>().seedType)
                 {
                     return inventory.IndexOf(g);
                 }

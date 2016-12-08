@@ -1,32 +1,4 @@
 sceneSetups:
-<<<<<<< master
-<<<<<<< master
-<<<<<<< master
-<<<<<<< master
-<<<<<<< josh
-<<<<<<< josh
-- path: Assets/GroundGeneration.unity
-=======
-- path: Assets/_Scenes/MainMenu.unity
->>>>>>> Save Game Data Script
-=======
-<<<<<<< master
-- path: Assets/_Scenes/MainMenu.unity
-=======
 - path: Assets/Main.unity
->>>>>>> Made the code work together a little bit
->>>>>>> Made the code work together a little bit
-=======
-- path: Assets/Main.unity
->>>>>>> Made the code work together a little bit
-=======
-- path: Assets/Start.unity
->>>>>>> Working on Saveing game data
-=======
-- path: Assets/AllisonTest.unity
->>>>>>> Did some bug fixing and added to the save function
-=======
-- path: Assets/Main.unity
->>>>>>> fences can now be placed
   isLoaded: 1
   isActive: 1

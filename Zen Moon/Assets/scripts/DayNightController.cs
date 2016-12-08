@@ -25,7 +25,7 @@ public class DayNightController : MonoBehaviour
     /// <summary>
     /// Whether or not it is day time
     /// </summary>
-    bool isDay = true;
+    public bool isDay = true;
 
     /// <summary>
     /// Initializes the timer for day time
@@ -46,8 +46,7 @@ public class DayNightController : MonoBehaviour
         {
             if (isDay)
             {
-                print("saving...");
-                SaveLoadController.Save();
+                //SaveLoadController.Save();
                 Timer = nightTime * secsInMin;
                 isDay = false;
             }

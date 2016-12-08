@@ -8,23 +8,26 @@ using System.Collections;
 public class JDTestCommands : MonoBehaviour
 {
 
-    public JDStaticVariables.inventory inventory;
-    public int dayCount = 0;
-    public int money = 0;
+    //public JDStaticVariables.inventory inventory;
+    //public int dayCount = 0;
+    //public int money = 0;
+    //[Range(0,100)]
+    //public int zen = 0;
 
-    // Use this for initialization
-    void Start()
-    {
-        inventory = JDStaticVariables.inventory.hoe;
-    }
+    //// Use this for initialization
+    //void Start()
+    //{
+    //    inventory = JDStaticVariables.inventory.hoe;
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        JDStaticVariables.playerInventory = inventory;
-        if (Input.GetButtonDown("Fire2")) JDStaticVariables.DayChange();
-        dayCount = JDStaticVariables.dayCount;
-        money = JDStaticVariables.moneyTotal;
-    }
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    JDStaticVariables.playerInventory = inventory;
+    //    if (Input.GetKeyDown("n")) JDStaticVariables.DayChange();
+    //    dayCount = JDStaticVariables.dayCount;
+    //    money = JDStaticVariables.moneyTotal;
+    //    JDStaticVariables.zenTotal = zen;
+    //}
 
 }

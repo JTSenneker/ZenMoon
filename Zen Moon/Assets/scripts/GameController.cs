@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
 
         if (SaveLoadController.contin)
         {
-            print("Loading");
             SaveLoadController.Load();
         }
 	}
@@ -68,7 +67,13 @@ public class GameController : MonoBehaviour
             
             playerCon.isInteracting = false;
         }
-	}
+
+        if (!GetComponent<DayNightController>().isDay)
+        {
+            CheckPlantsGrow();
+        }
+
+    }
 
     /// <summary>
     /// Places down an item that is being thrown
@@ -92,11 +97,13 @@ public class GameController : MonoBehaviour
 
         if (tile != null)
         {
-            JDStaticVariables.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
-            if (tileType == JDStaticVariables.tiles.tilledDirt)
+            JDGroundClass.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
+            if (tileType == JDGroundClass.tiles.tilled)
             {
                 GameObject newSeeds = (GameObject)Instantiate(seeds, tile.transform.position, Quaternion.identity);
-                newSeeds.GetComponent<Seeds>().seedType = playerCon.invCon.currItem.GetComponent<Seeds>().seedType;
+                newSeeds.GetComponent<JDPlantClass>().seedType = playerCon.invCon.currItem.GetComponent<JDPlantClass>().seedType;
+                newSeeds.GetComponent<JDPlantClass>().plantedTile = tile;
+                tile.GetComponent<JDGroundClass>().occupiedWith = newSeeds;
             }
         }
     }
@@ -110,15 +117,41 @@ public class GameController : MonoBehaviour
 
         if (tile != null)
         {
-            JDStaticVariables.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
+            JDGroundClass.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
             if(playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.hoe)
             {
-                tile.GetComponent<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.tilledDirt;
+                tile.GetComponent<JDGroundClass>()._tileStatus = JDGroundClass.tiles.tilled;
             }
-            if (playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.wateringCan && tileType == JDStaticVariables.tiles.tilledDirt)
+            if (playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.wateringCan && tileType == JDGroundClass.tiles.tilled)
             {
-                tile.GetComponent<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.watered;
+                tile.GetComponent<JDGroundClass>()._tileStatus = JDGroundClass.tiles.watered;
             }
+        }
+    }
+
+    /// <summary>
+    /// this function checks each tile
+    /// if the tiles has something planted in it
+    /// it tells the plant to grow if it can
+    /// then resets every watered tile to it's default status
+    /// so the player must water the tile again the next day
+    /// </summary>
+    void CheckPlantsGrow()
+    {
+        GameObject[,] groundArray = grid.GetComponent<JDGroundSpawner>().groundArray;
+
+        foreach (GameObject ground in groundArray)
+        {
+            if (ground.GetComponentInChildren<JDGroundClass>().occupiedWith != null)
+            {
+                //the plant checks if the tile has been watered, if so it will grow                
+                ground.GetComponentInChildren<JDGroundClass>().occupiedWith.GetComponentInChildren<JDPlantClass>().Grow();
+                if (ground.GetComponentInChildren<JDGroundClass>()._tileStatus == JDGroundClass.tiles.watered)
+                {
+                    ground.GetComponentInChildren<JDGroundClass>()._tileStatus = JDGroundClass.tiles.tilled;
+                }
+            }
+            
         }
     }
 }

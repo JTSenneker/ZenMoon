@@ -82,18 +82,18 @@ public static class SaveLoadController
         }
         if (grid != null)
         {
-            int[,] ground = grid.map;
-            for (int i = 0; i < ground.Length; i++)
-            {
-                //for (int j = 0; j < ground.GetLength(i); j++)
-                //{
-                //    //For this to work at all I need either a multidimensional array using
-                //    //a gameobject array or I need a way to get the tile from the JDGroundSpawner class!!
+            //int[,] ground = grid.map;
+            //for (int i = 0; i < ground.Length; i++)
+            //{
+            //    //for (int j = 0; j < ground.GetLength(i); j++)
+            //    //{
+            //    //    //For this to work at all I need either a multidimensional array using
+            //    //    //a gameobject array or I need a way to get the tile from the JDGroundSpawner class!!
 
-                //    //get the type of each tile
-                //    //make a switch statement to switch each type to a string
-                //}
-            }
+            //    //    //get the type of each tile
+            //    //    //make a switch statement to switch each type to a string
+            //    //}
+            //}
         }
 
         if(save1)
