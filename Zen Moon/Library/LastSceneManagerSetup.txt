@@ -1,12 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-<<<<<<< master
-- path: Assets/AllisonTest.unity
-=======
 - path: Assets/GroundGeneration.unity
->>>>>>> got the grid spawn working and the targeting helper to track correctly. May need some fine tuning with the size of the collider. Still need to add different 'ground' types, but that should be easily doable
-=======
-- path: Assets/GroundGeneration.unity
->>>>>>> josh
   isLoaded: 1
   isActive: 1

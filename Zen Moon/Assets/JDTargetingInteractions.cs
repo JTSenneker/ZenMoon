@@ -9,6 +9,7 @@ public class JDTargetingInteractions : MonoBehaviour
     public GameObject corn;
     public GameObject leek;
     public GameObject daikon;
+    public GameObject fence;
 
     public GameObject shippingBox;
 
@@ -25,7 +26,7 @@ public class JDTargetingInteractions : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Pick"))
         {
             if (JDStaticVariables.usingMouse)
             {
@@ -70,6 +71,8 @@ public class JDTargetingInteractions : MonoBehaviour
                                 target.GetComponentInChildren<JDGroundClass>().occupiedWith = plant;
                                 //set whether the plant sticks around after it's harvested
                                 plant.GetComponentInChildren<JDPlantClass>().destroyOnHarvest = false;
+                                //tell the plant which tile it's being planted on
+                                plant.GetComponentInChildren<JDPlantClass>().plantedTile = target;
                             }
 
                             //if planting leek
@@ -80,6 +83,7 @@ public class JDTargetingInteractions : MonoBehaviour
                                 plant.GetComponentInChildren<JDPlantClass>().growthTime = JDStaticVariables.leekGrowthTime;
                                 plant.GetComponentInChildren<JDPlantClass>().moneyValue = JDStaticVariables.leekMoneyValue;
                                 target.GetComponentInChildren<JDGroundClass>().occupiedWith = plant;
+                                plant.GetComponentInChildren<JDPlantClass>().plantedTile = target;
                             }
 
                             //if planting cornSeed
@@ -91,6 +95,7 @@ public class JDTargetingInteractions : MonoBehaviour
                                 plant.GetComponentInChildren<JDPlantClass>().moneyValue = JDStaticVariables.cornMoneyValue;
                                 target.GetComponentInChildren<JDGroundClass>().occupiedWith = plant;
                                 plant.GetComponentInChildren<JDPlantClass>().destroyOnHarvest = false;
+                                plant.GetComponentInChildren<JDPlantClass>().plantedTile = target;
                             }
 
                             //if planting daikonSeed
@@ -101,6 +106,7 @@ public class JDTargetingInteractions : MonoBehaviour
                                 plant.GetComponentInChildren<JDPlantClass>().growthTime = JDStaticVariables.daikonGrowthTime;
                                 plant.GetComponentInChildren<JDPlantClass>().moneyValue = JDStaticVariables.daikonMoneyValue;
                                 target.GetComponentInChildren<JDGroundClass>().occupiedWith = plant;
+                                plant.GetComponentInChildren<JDPlantClass>().plantedTile = target;
                             }
                         }//end of tilledDirtcheck
 
@@ -186,39 +192,51 @@ public class JDTargetingInteractions : MonoBehaviour
                             {
                                 target.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.tilledDirt;
                             }
+                            //if holding fence
+                            if(JDStaticVariables.playerInventory == JDStaticVariables.inventory.fence)
+                            {
+                                GameObject newFence = fence;
+                                newFence = Instantiate(corn, target.transform.position, Quaternion.identity) as GameObject;
+                                target.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.fence;
+
+
+                                target.GetComponentInChildren<JDGroundClass>().occupiedWith = newFence;    
+                                newFence.GetComponentInChildren<JDFenceClass>().plantedTile = target;
+
+                            }
                         }
 
-
-
-
-                        //watering seeded ground
-                        if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.water)
+                        //if seeded ground
+                        if (targetStatus == JDStaticVariables.tiles.seeded)
                         {
-                            //can only water seeded ground
-                            if (targetStatus == JDStaticVariables.tiles.seeded)
+
+                            //if want to water
+                            if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.water)
                             {
+                                //can only water seeded ground
                                 target.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.watered;
                             }
-
                         }
-                        print(targetStatus);
+
+ 
+                            print(targetStatus);
                     }//end of ground check
 
-                    if(target.gameObject == shippingBox)
+                    if (target.gameObject == shippingBox)
                     {
-                        if(JDStaticVariables.playerInventory == JDStaticVariables.inventory.ricePlant)
+                        if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.ricePlant)
                         {
                             JDStaticVariables.shippingStock.Add(rice);
                         }
-                        if(JDStaticVariables.playerInventory == JDStaticVariables.inventory.leekPlant)
+                        if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.leekPlant)
                         {
                             JDStaticVariables.shippingStock.Add(leek);
                         }
-                        if(JDStaticVariables.playerInventory == JDStaticVariables.inventory.daikonPlant)
+                        if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.daikonPlant)
                         {
                             JDStaticVariables.shippingStock.Add(daikon);
                         }
-                        if(JDStaticVariables.playerInventory == JDStaticVariables.inventory.cornPlant)
+                        if (JDStaticVariables.playerInventory == JDStaticVariables.inventory.cornPlant)
                         {
                             JDStaticVariables.shippingStock.Add(corn);
                         }

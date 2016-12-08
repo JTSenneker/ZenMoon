@@ -5,8 +5,8 @@ public class JDPlantClass : MonoBehaviour {
 
     //how long it grows for
     public int growthTime;
-    //when it was planted
-    int plantedTime;
+    //how long it has been growing for, only is incremented if the tile it's planted on is watered
+    int growingDays = 0;
     //bloomed means the plant can be harvested
     public bool bloomed;
     //has it been harvested yet?
@@ -21,7 +21,7 @@ public class JDPlantClass : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        plantedTime = JDStaticVariables.dayCount;
+
 	}
 	
 	// Update is called once per frame
@@ -32,14 +32,19 @@ public class JDPlantClass : MonoBehaviour {
 
         //this is where we check it's planted time, compared to it's growth time
 
-
-   ///////still need to put in logic for utilizing the watered ground
+        
    //most likely, if the ground from the planted tile is not watered, add 1 to planted time, so time effectively doesn't pass
    //for this plant
 
-        if (JDStaticVariables.dayCount == plantedTime + growthTime && !bloomed)
+        if (growingDays == growthTime && !bloomed)
         {
             bloomed = true;
+            canBeHarvested = true;
+            transform.localScale *= 2;
+        }
+        //this part is for harvesting a plant that can be gotten more than once
+        if(bloomed && destroyOnHarvest == false && growingDays == growthTime && !canBeHarvested)
+        {
             canBeHarvested = true;
             transform.localScale *= 2;
         }
@@ -58,17 +63,41 @@ public class JDPlantClass : MonoBehaviour {
         if (bloomed && canBeHarvested) return true;
         return false;
     }
+    /// <summary>
+    /// this function is run when the player tries to harvest this plant
+    /// if the plant is supposed to be destroyed, then the tile is set to base dirt
+    /// and the plant is destroyed
+    /// then the tile it's planted on is told that it's now empty
+    /// 
+    /// if the plant is not destroyed on harvest, it's 'canBeHarvested" status is set to false
+    /// and the amount of days it needs to grow resets to 0
+    /// </summary>
     public void Harvest()
     {
         if (destroyOnHarvest)
         {
             plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.dirt;
+            plantedTile.GetComponentInChildren<JDGroundClass>().occupiedWith = null;
             Destroy(gameObject);
         }
         else
         {
             canBeHarvested = false;
-            plantedTime = JDStaticVariables.dayCount;
+            growingDays = 0;
         }
+    }
+    /// <summary>
+    /// this function has the plant test if the tile it's planted on has been watered
+    /// and if so, increments the growth time
+    /// </summary>
+    /// <returns>true if the plant can grow, (the tile is watered)</returns>
+    public bool Grow()
+    {
+        if(plantedTile.GetComponentInChildren<JDGroundClass>()._tileStatus == JDStaticVariables.tiles.watered)
+        {
+            growingDays ++;
+            return true;
+        }
+        return false;
     }
 }

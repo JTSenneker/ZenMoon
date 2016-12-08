@@ -13,7 +13,6 @@ public class JDGroundSpawner : MonoBehaviour {
     public float tileYScale;
 
 
-   public int[,] map;
 
     public GameObject ground;
     public GameObject tilledGround;
@@ -22,28 +21,17 @@ public class JDGroundSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        map = new int[mapHeight,mapWidth];
+       JDStaticVariables.groundArray = new GameObject[mapHeight,mapWidth];
         tileXScale = 1;
         tileYScale = 1;
-
-        SpawnBasicTerrain();
+        
         InstantiateTerrain();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
-    void SpawnBasicTerrain()
-    {
-        int t = 1;
-        for(int x = 0; x <= mapWidth-1; x++)
-        {
-            for(int y = 0; y <= mapHeight-1; y++)
-            {
-                map[x,y] = t;
-            }
-        }
-    }
+
 
     /// <summary>
     /// create the terrain grid, assign random ground types
@@ -57,16 +45,18 @@ public class JDGroundSpawner : MonoBehaviour {
             for (int y = 0; y <= mapHeight - 1; y++)
             {
                 //exclusive random
-                r = Random.Range(1, 3);
+                r = Random.Range(0, 3);
                 //print(r);
                 // tile = GetGroundTile(r);
                 tile = ground;
 
-                Vector3 position = new Vector3(x * tileXScale, 0, y*tileYScale);
+                Vector3 position = new Vector3(x * tileXScale,  y*tileYScale,0);
                 //tile = Instantiate(ground, position, Quaternion.identity) as GameObject;
                 tile = Instantiate(tile, position, Quaternion.Euler(90,0,0)) as GameObject;
                 tile.GetComponentInChildren<JDGroundClass>()._tileStatus = (JDStaticVariables.tiles)r;
-                //tile.transform.Rotate(new Vector3(1, 0, 0), 90);
+                //tile.GetComponentInChildren<JDGroundClass>()._tileStatus = JDStaticVariables.tiles.dirt;
+                tile.transform.Rotate(new Vector3(1, 0, 0), 90);
+                JDStaticVariables.groundArray[x, y] = tile;
             }
         }
     }
