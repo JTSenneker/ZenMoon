@@ -89,19 +89,6 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
-    /// Places down an item that is being thrown
-    /// </summary>
-    void PlaceItems()
-    {
-        GameObject tile = JDMouseTargeting.target;
-        GameObject item = playerCon.invCon.currItem;
-        if (tile != null)
-        {
-            GameObject newItem = (GameObject)Instantiate(item, tile.transform.position, Quaternion.identity);
-        }
-    }
-
-    /// <summary>
     /// Places seeds on the grid
     /// </summary>
     void PlaceSeeds()

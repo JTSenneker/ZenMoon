@@ -122,51 +122,6 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets the Inventory but in an array of strings rather than gameobjects
-    /// </summary>
-    /// <returns>An inventory in strings</returns>
-    public ArrayList GetInventory ()
-    {
-        ArrayList invString = new ArrayList();
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            GameObject temp = (GameObject)inventory[i];
-            invString.Add(temp.name);
-        }
-        return invString;
-    }
-
-    /// <summary>
-    /// Gets the inventory count
-    /// </summary>
-    /// <returns>The inventory count</returns>
-    public ArrayList GetInventoryCount()
-    {
-        return inventoryCount;
-    }
-
-    /// <summary>
-    /// Sets the inventory when the game is being loaded
-    /// </summary>
-    /// <param name="inv">The inventory using strings</param>
-    public void SetInventory(ArrayList inv)
-    {
-        inventory.Clear();
-        
-        InventoryItems invIt = GetComponent<InventoryItems>();
-        for (int i = 0; i < inv.Count; i++)
-        {
-            for (int j = 0; j < invIt.pItemNames.Length; j++)
-            {
-                if ((string)inv[i] == invIt.pItemNames[j]+"(Clone)")
-                {
-                    AddItem(invIt.possibleItems[j]);
-                }
-            }
-        }
-    }
-
-    /// <summary>
     /// Sets the inventory count when the game is being loaded
     /// </summary>
     /// <param name="invCount">The array of intigers with the inventory count</param>

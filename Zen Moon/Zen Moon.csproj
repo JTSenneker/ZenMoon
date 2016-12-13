@@ -63,17 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< master
-<<<<<<< master
     <Compile Include="Assets\scripts\CameraController.cs" />
     <Compile Include="Assets\scripts\CollisionController.cs" />
     <Compile Include="Assets\scripts\CreateBoundary.cs" />
-<<<<<<< master
-=======
-    <Compile Include="Assets\scripts\CameraController.cs" />
->>>>>>> Working on Saveing game data
-=======
->>>>>>> Did some bug fixing and added to the save function
     <Compile Include="Assets\scripts\Crop.cs" />
     <Compile Include="Assets\scripts\DayNightController.cs" />
     <Compile Include="Assets\scripts\Fence.cs" />
@@ -81,41 +73,22 @@
     <Compile Include="Assets\scripts\InventoryController.cs" />
     <Compile Include="Assets\scripts\InventoryItems.cs" />
     <Compile Include="Assets\scripts\InventoryPanel.cs" />
-<<<<<<< master
-=======
-    <Compile Include="Assets\scripts\Crop.cs" />
-    <Compile Include="Assets\scripts\DayNightController.cs" />
-    <Compile Include="Assets\scripts\GameController.cs" />
-    <Compile Include="Assets\scripts\InventoryController.cs" />
->>>>>>> Did some bug fixed on the player and the inventory
-=======
->>>>>>> Working on Saveing game data
+    <Compile Include="Assets\scripts\JDDayTextSet.cs" />
+    <Compile Include="Assets\scripts\JDFenceClass.cs" />
     <Compile Include="Assets\scripts\JDGroundClass.cs" />
     <Compile Include="Assets\scripts\JDGroundSpawner.cs" />
+    <Compile Include="Assets\scripts\JDMoneyText.cs" />
     <Compile Include="Assets\scripts\JDMouseTargeting.cs" />
     <Compile Include="Assets\scripts\JDPlantClass.cs" />
     <Compile Include="Assets\scripts\JDStaticVariables.cs" />
     <Compile Include="Assets\scripts\JDTargetingInteractions.cs" />
     <Compile Include="Assets\scripts\JDTestCommands.cs" />
-<<<<<<< master
-<<<<<<< master
+    <Compile Include="Assets\scripts\JDZenLength.cs" />
     <Compile Include="Assets\scripts\NightController.cs" />
     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
     <Compile Include="Assets\scripts\SaveControl.cs" />
     <Compile Include="Assets\scripts\SaveLoadController.cs" />
-=======
-=======
-    <Compile Include="Assets\scripts\NightController.cs" />
->>>>>>> fences can now be placed
-    <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
-    <Compile Include="Assets\scripts\PlayerController.cs" />
-<<<<<<< master
->>>>>>> Did some bug fixed on the player and the inventory
-=======
-    <Compile Include="Assets\scripts\SaveControl.cs" />
-    <Compile Include="Assets\scripts\SaveLoadController.cs" />
->>>>>>> Working on Saveing game data
     <Compile Include="Assets\scripts\Seeds.cs" />
     <Compile Include="Assets\scripts\Tool.cs" />
   </ItemGroup>
