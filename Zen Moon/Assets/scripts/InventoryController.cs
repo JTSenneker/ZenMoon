@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Controlls the inventory of the player
 /// </summary>
-public class InventoryController : MonoBehaviour 
+public class InventoryController : MonoBehaviour
 {
     /// <summary>
     /// The total inventory of the player
@@ -43,10 +43,10 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public int[] itemCount;
 
-	/// <summary>
-	/// Adds certain starting items to inventory
-	/// </summary>
-	void Start () 
+    /// <summary>
+    /// Adds certain starting items to inventory
+    /// </summary>
+    void Start()
     {
         foreach (GameObject item in startItems)
         {
@@ -59,8 +59,8 @@ public class InventoryController : MonoBehaviour
         if (inventory[currIndex] != null)
         {
             currItem = (GameObject)inventory[currIndex];
-        }  
-	}
+        }
+    }
 
     /// <summary>
     /// removes items that have an inventory count of zero
@@ -80,7 +80,7 @@ public class InventoryController : MonoBehaviour
     /// Gets the Inventory but in an array of strings rather than gameobjects
     /// </summary>
     /// <returns>An inventory in strings</returns>
-    public ArrayList GetInventory ()
+    public ArrayList GetInventory()
     {
         ArrayList invString = new ArrayList();
         for (int i = 0; i < inventory.Count; i++)
@@ -101,19 +101,28 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary>
+    /// Gets the inventory count
+    /// </summary>
+    /// <returns>The current item's count</returns>
+    public int GetCurrentCount()
+    {
+        return (int)inventoryCount[currIndex];
+    }
+
+    /// <summary>
     /// Sets the inventory when the game is being loaded
     /// </summary>
     /// <param name="inv">The inventory using strings</param>
     public void SetInventory(ArrayList inv)
     {
         inventory.Clear();
-        
+
         InventoryItems invIt = GetComponent<InventoryItems>();
         for (int i = 0; i < inv.Count; i++)
         {
             for (int j = 0; j < invIt.pItemNames.Length; j++)
             {
-                if ((string)inv[i] == invIt.pItemNames[j]+"(Clone)")
+                if ((string)inv[i] == invIt.pItemNames[j] + "(Clone)")
                 {
                     AddItem(invIt.possibleItems[j]);
                 }
@@ -213,7 +222,7 @@ public class InventoryController : MonoBehaviour
     public void RemoveItem(GameObject item)
     {
         int index = inventory.IndexOf(item);
-        
+
         if (index != -1)
         {
             if ((int)inventoryCount[index] > 0)
@@ -257,7 +266,7 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public void HideItem()
     {
-        if(tempObj.tag == "crop")
+        if (tempObj.tag == "crop")
         {
             tempObj.GetComponent<Crop>().NotSelected();
         }
@@ -269,3 +278,4 @@ public class InventoryController : MonoBehaviour
         isShowing = false;
     }
 }
+

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
@@ -21,27 +22,29 @@ public class InventoryPanel : MonoBehaviour
     /// <summary>
     /// The current amount of the item the player has selected
     /// </summary>
-    int itemCount = 0;
+    Text itemCount;
 
-	/// <summary>
+    /// <summary>
     /// Sets the inventory controller
     /// </summary>
-	void Start ()
+    void Start()
     {
         invCon = player.GetComponent<InventoryController>();
-	}
-	
-	/// <summary>
+        itemCount = GetComponentInChildren<Text>();
+        itemCount.text = "0";
+    }
+
+    /// <summary>
     /// switches the inventory items when the player selects a new item
     /// </summary>
-	void Update ()
+    void Update()
     {
-        if(invChanged())
+        if (invChanged())
         {
             hideItem();
             showItem();
         }
-	}
+    }
 
     /// <summary>
     /// Whether or not the currently selected item has changed
@@ -62,7 +65,7 @@ public class InventoryPanel : MonoBehaviour
     /// </summary>
     void hideItem()
     {
-        if(item != null)
+        if (item != null)
         {
             Destroy(item.gameObject);
         }
@@ -75,10 +78,12 @@ public class InventoryPanel : MonoBehaviour
     {
         if (invCon.currItem != null)
         {
-            GameObject newItem = (GameObject)Instantiate(invCon.currItem, transform.position, Quaternion.identity);
+            Vector3 position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+            GameObject newItem = (GameObject)Instantiate(invCon.currItem, position, Quaternion.identity);
             item = newItem;
+            itemCount.text = invCon.GetCurrentCount().ToString();
             item.transform.parent = this.transform;
         }
-       
+
     }
 }

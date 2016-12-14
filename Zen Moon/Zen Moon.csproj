@@ -84,6 +84,7 @@
     <Compile Include="Assets\scripts\JDTargetingInteractions.cs" />
     <Compile Include="Assets\scripts\JDTestCommands.cs" />
     <Compile Include="Assets\scripts\JDZenLength.cs" />
+    <Compile Include="Assets\scripts\Merchant.cs" />
     <Compile Include="Assets\scripts\NightController.cs" />
     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />

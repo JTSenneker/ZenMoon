@@ -15,6 +15,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     public GameObject player;
     /// <summary>
+    /// The merchant
+    /// </summary>
+    public GameObject merchant;
+    /// <summary>
     /// A reference to the seeds object
     /// </summary>
     public GameObject seeds;
@@ -26,11 +30,15 @@ public class GameController : MonoBehaviour
     /// A reference to the player controller
     /// </summary>
     PlayerController playerCon;
+    /// <summary>
+    /// The day count
+    /// </summary>
+    int dCount = 0;
 
-	/// <summary>
+    /// <summary>
     /// Sets the grid controller and the player controller and sets objects for the save mechanic
     /// </summary>
-	void Start ()
+    void Start()
     {
         gridCon = grid.GetComponent<JDGroundSpawner>();
         playerCon = player.GetComponent<PlayerController>();
@@ -43,16 +51,21 @@ public class GameController : MonoBehaviour
         {
             SaveLoadController.Load();
         }
-	}
-	
-	/// <summary>
+    }
+
+    /// <summary>
     /// Finds out if the player is interacting with the grid
     /// </summary>
-	void Update ()
-    { 
-        if(playerCon.isInteracting)
+    void Update()
+    {
+        if (playerCon.isInteracting)
         {
-            if (playerCon.invCon.currItem.tag == "tool")
+            if (JDMouseTargeting.GetMouseTarget().tag == merchant.tag)
+            {
+                Time.timeScale = 0;
+                merchant.GetComponent<Merchant>().openSell();
+            }
+            else if (playerCon.invCon.currItem.tag == "tool")
             {
                 SwitchTile();
             }
@@ -64,15 +77,39 @@ public class GameController : MonoBehaviour
             {
                 PlaceItems();
             }
-            
+
             playerCon.isInteracting = false;
         }
 
-        if (!GetComponent<DayNightController>().isDay)
+        if (GetComponent<DayNightController>().isDay && dCount != JDStaticVariables.dayCount || JDStaticVariables.dayCount == 1 && dCount != JDStaticVariables.dayCount)
+        {
+            if (merchantArrived())
+            {
+                Vector2 placement = new Vector2(0, gridCon.mapHeight);
+                Instantiate(merchant, placement, Quaternion.identity);
+            }
+            dCount = JDStaticVariables.dayCount;
+        }
+
+        else if (!GetComponent<DayNightController>().isDay)
         {
             CheckPlantsGrow();
         }
 
+    }
+
+    /// <summary>
+    /// Figures out if the merchant is coming today
+    /// </summary>
+    /// <returns>True if the merchant is coming today</returns>
+    bool merchantArrived()
+    {
+        int r = Random.Range(1, 11);
+        if (r <= 7)
+        {
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -118,7 +155,7 @@ public class GameController : MonoBehaviour
         if (tile != null)
         {
             JDGroundClass.tiles tileType = tile.GetComponent<JDGroundClass>()._tileStatus;
-            if(playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.hoe)
+            if (playerCon.invCon.currItem.GetComponent<Tool>().toolType == Tool.ToolType.hoe)
             {
                 tile.GetComponent<JDGroundClass>()._tileStatus = JDGroundClass.tiles.tilled;
             }
@@ -151,7 +188,8 @@ public class GameController : MonoBehaviour
                     ground.GetComponentInChildren<JDGroundClass>()._tileStatus = JDGroundClass.tiles.tilled;
                 }
             }
-            
+
         }
     }
 }
+
