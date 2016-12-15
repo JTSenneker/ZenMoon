@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// this class holds all the information for the ground tiles
+/// </summary>
 public class JDGroundClass : MonoBehaviour {
-
-    //the current status of this tile, tilled, seeded, etc
+    /// <summary>
+    ///the current status of this tile, tilled, seeded, etc 
+    /// </summary>
     public tiles _tileStatus;
-    //what this tile has placed/planted ontop of it
+    /// <summary>
+    ///what this tile has placed/planted ontop of it 
+    /// </summary>
     public GameObject occupiedWith;
     /// <summary>
     /// The sprite renderer of the tile
@@ -35,13 +41,8 @@ public class JDGroundClass : MonoBehaviour {
     }
 
     /// <summary>
-    /// Might be easier if you put your enumerator into this class for the dirt tiles also a bit better organized.
-    /// If you do this remember to change _tileStatus to just tiles rather than JDStaticVariables.tiles
-    /// Also, I would suggest getting rid of seeded and rock tiles because seeds will be plased above tiles and for now rocks aren't being used
-    /// !!!If you do this make sure you fix the Game Controller script as well to make a working game!!!
+    /// set the sprite renderer
     /// </summary>
-
-	// Use this for initialization
 	void Start ()
     {
         spriteRend = GetComponent<SpriteRenderer>();
@@ -64,5 +65,19 @@ public class JDGroundClass : MonoBehaviour {
                 spriteRend.sprite = watered;
                 break;
         }
+
+    }
+    /// <summary>
+    /// this function returns a string based on the tile passed in
+    /// for the purpose of save/load
+    /// </summary>
+    /// <param name="type"> the 'tiles' type we want converted to string</param>
+    /// <returns>returns a string corressponding to the tilestatus requested</returns>
+    string GetGroundTile(tiles type) {
+        if (type == tiles.dirt) return "dirt";
+        if (type == tiles.tilled) return "tilled";
+        if (type == tiles.watered) return "watered";
+
+        return null;
     }
 }

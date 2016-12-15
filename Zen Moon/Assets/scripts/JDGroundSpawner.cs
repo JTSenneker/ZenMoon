@@ -1,32 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// this class is responsible for creating the tiles 
+/// for the ground, based on an array
+/// </summary>
 public class JDGroundSpawner : MonoBehaviour
-{
+{/// <summary>
+/// how many tiles wide is the grid
+/// </summary>
     public int mapWidth = 10;
+/// <summary>
+/// how many tiles high is the grid
+/// </summary>
     public int mapHeight = 10;
 
-    public float tileXScale;
-    public float tileYScale;
+    /// <summary>
+    /// how wide each tile is
+    /// </summary>
+    public float tileXScale = 1;
+    /// <summary>
+    /// how tall each tile is
+    /// </summary>
+    public float tileYScale = 1;
 
+/// <summary>
+/// the array in which we hold the ground tiles
+/// </summary>
     public GameObject[,] groundArray;
-
+    /// <summary>
+    /// the ground tile we are spawning
+    /// </summary>
     public GameObject ground;
-    public GameObject tilledGround;
 
 
-
-	// Use this for initialization
+    /// <summary>
+    /// instantiate the array
+    /// and call the function to create the terrain
+    /// </summary>
 	void Start () {
         groundArray = new GameObject[mapHeight,mapWidth];
-        tileXScale = 1;
-        tileYScale = 1;
-        
+
         InstantiateTerrain();
-	}
-	
-	// Update is called once per frame
-	void Update () {
 	}
 
 
@@ -51,18 +66,4 @@ public class JDGroundSpawner : MonoBehaviour
             }
         }
     }
-
-    ////TODO: Needs to return a string for save and load
-    /*
-    GameObject GetGroundTile(int tile)
-    {
-        switch (tile)
-        {
-            case (int)JDStaticVariables.tiles.dirt:
-                return ground;
-            case (int)JDStaticVariables.tiles.tilledDirt:
-                return tilledGround;
-        }
-        return ground;
-    }*/
 }

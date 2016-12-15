@@ -1,23 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// this class contains all the info on plants
+/// </summary>
 public class JDPlantClass : MonoBehaviour
 {
-
-    //how long it grows for
+    /// <summary>
+    /// how long it grows for
+    /// </summary>
     public int growthTime;
-    //how long it has been growing for, only is incremented if the tile it's planted on is watered
+    /// <summary>
+    ///how long it has been growing for, only is incremented if the tile it's planted on is watered 
+    /// </summary>
     int growingDays = 0;
-    //bloomed means the plant can be harvested
+    /// <summary>
+    /// bloomed means the plant can be harvested
+    /// </summary>
     public bool bloomed;
-    //has it been harvested yet?
+    /// <summary>
+    /// can the plant be harvested
+    /// </summary>
     public bool canBeHarvested = false;
-    //does it stick around after being harvested?
+    /// <summary>
+    /// does the plant stick around after being harvested
+    /// </summary>
     public bool destroyOnHarvest = true;
-    //how much money is it worth?
+    /// <summary>
+    /// how much money is the plant worth
+    /// </summary>
     public int moneyValue;
-    //the tile this plant is 'planted' on
+    /// <summary>
+    /// this tile this plant is 'planted' on
+    /// </summary>
     public GameObject plantedTile;
+
+
+
+    SpriteRenderer spriteR;
 
     /// <summary>
     /// Possible types of crops
@@ -35,8 +55,9 @@ public class JDPlantClass : MonoBehaviour
     /// </summary>
     public SeedType seedType;
 
-
-    // Use this for initialization
+    /// <summary>
+    /// initialize the value of the plant
+    /// </summary>
     void Start ()
     {
         switch (seedType)
@@ -58,9 +79,10 @@ public class JDPlantClass : MonoBehaviour
                 growthTime = 10;
                 break;
         }
+
+        spriteR = GetComponent<SpriteRenderer>();
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         //this is where we update the sprite according to it's status
@@ -89,6 +111,25 @@ public class JDPlantClass : MonoBehaviour
         //once bloomed, we can then harvest from it
         //some plants stick around after being harvested
         //so if they have been harvested, they don't change until they bloom again
+    }
+    /// <summary>
+    /// this function changes the plant's current frame 
+    /// based on what seedtype it is and how old it is
+    /// </summary>
+    void GrowingFrames()
+    {
+//////////////TODO: currently not called as i'm not sure the exact syntax we're using with this
+        switch (seedType)
+        {
+            case SeedType.corn:
+                break;
+            case SeedType.leek:
+                break;
+            case SeedType.rice:
+                break;
+            case SeedType.daikon:
+                break;
+        }
     }
 
     /// <summary>

@@ -69,24 +69,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Crop.cs" />
-    <Compile Include="Assets\DayNightController.cs" />
-    <Compile Include="Assets\InventoryController.cs" />
-    <Compile Include="Assets\JDDayTextSet.cs" />
-    <Compile Include="Assets\JDFenceClass.cs" />
-    <Compile Include="Assets\JDGroundClass.cs" />
-    <Compile Include="Assets\JDGroundSpawner.cs" />
-    <Compile Include="Assets\JDMoneyText.cs" />
-    <Compile Include="Assets\JDMouseTargeting.cs" />
-    <Compile Include="Assets\JDPlantClass.cs" />
-    <Compile Include="Assets\JDTargetingInteractions.cs" />
-    <Compile Include="Assets\JDTestCommands.cs" />
-    <Compile Include="Assets\JDZenLength.cs" />
-    <Compile Include="Assets\PlayerAnimationController.cs" />
-    <Compile Include="Assets\PlayerController.cs" />
-    <Compile Include="Assets\Seeds.cs" />
-    <Compile Include="Assets\Tool.cs" />
+    <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\CollisionController.cs" />
+    <Compile Include="Assets\scripts\CreateBoundary.cs" />
+    <Compile Include="Assets\scripts\Crop.cs" />
+    <Compile Include="Assets\scripts\DayNightController.cs" />
+    <Compile Include="Assets\scripts\Fence.cs" />
+    <Compile Include="Assets\scripts\GameController.cs" />
+    <Compile Include="Assets\scripts\InventoryController.cs" />
+    <Compile Include="Assets\scripts\InventoryItems.cs" />
+    <Compile Include="Assets\scripts\InventoryPanel.cs" />
+    <Compile Include="Assets\scripts\JDDayTextSet.cs" />
+    <Compile Include="Assets\scripts\JDFenceClass.cs" />
+    <Compile Include="Assets\scripts\JDGroundClass.cs" />
+    <Compile Include="Assets\scripts\JDGroundSpawner.cs" />
+    <Compile Include="Assets\scripts\JDMoneyText.cs" />
+    <Compile Include="Assets\scripts\JDMouseTargeting.cs" />
+    <Compile Include="Assets\scripts\JDPlantClass.cs" />
+    <Compile Include="Assets\scripts\JDShippingClass.cs" />
     <Compile Include="Assets\scripts\JDStaticVariables.cs" />
+    <Compile Include="Assets\scripts\JDTargetingInteractions.cs" />
+    <Compile Include="Assets\scripts\JDTestCommands.cs" />
+    <Compile Include="Assets\scripts\JDZenLength.cs" />
+    <Compile Include="Assets\scripts\NightController.cs" />
+    <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
+    <Compile Include="Assets\scripts\PlayerController.cs" />
+    <Compile Include="Assets\scripts\SaveControl.cs" />
+    <Compile Include="Assets\scripts\SaveLoadController.cs" />
+    <Compile Include="Assets\scripts\Seeds.cs" />
+    <Compile Include="Assets\scripts\Tool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

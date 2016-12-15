@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// this class contains universal static variables to be accessed anywhere
+/// </summary>
 public static class JDStaticVariables
 {
-    //// TODO: may need to be in a shipping class
-    public static ArrayList shippingStock = new ArrayList();
+    //blic static ArrayList shippingStock = new ArrayList();
 
     //to check if we're using the mouse or gamepad, defaults to mouse
     public static bool usingMouse = true;
@@ -20,25 +22,24 @@ public static class JDStaticVariables
     static public void DayChange()
     {
         dayCount++;
-        DoShippingStuff();
+        //DoShippingStuff();
     }
 
-    ////TODO: This might need it's own class when whe get a shipping box
 
     /// <summary>
     /// all the stuff we need to do for shipping
     /// namely calculating money and clearing the list
     /// </summary>
-    static void DoShippingStuff()
-    {
-        int moneyToShip = 0;
-        foreach(GameObject stuff in shippingStock)
-        {
-            int moneyValue = stuff.GetComponent<JDPlantClass>().moneyValue;                 
-            moneyToShip += moneyValue;
-            Debug.Log(moneyToShip);
-        }
-        moneyTotal += moneyToShip;
-        shippingStock.Clear();
-    }
+ //  public static void DoShippingStuff()
+ //   {
+ //       int moneyToShip = 0;
+ //       foreach(GameObject stuff in shippingStock)
+ //       {
+ //           int moneyValue = stuff.GetComponent<JDPlantClass>().moneyValue;                 
+ //           moneyToShip += moneyValue;
+ //           Debug.Log(moneyToShip);
+ //       }
+ //       moneyTotal += moneyToShip;
+ //       shippingStock.Clear();
+ //   }
 }
