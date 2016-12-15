@@ -43,6 +43,11 @@ public class JDPlantClass : MonoBehaviour
     SpriteRenderer spriteR;
 
     /// <summary>
+    /// A reference to the animator attatched to the GameObject.
+    /// </summary>
+    Animator anim;
+
+    /// <summary>
     /// Possible types of crops
     /// </summary>
     public enum SeedType
@@ -103,13 +108,11 @@ public class JDPlantClass : MonoBehaviour
         {
             bloomed = true;
             canBeHarvested = true;
-            //transform.localScale *= 2;
         }
         //this part is for harvesting a plant that can be gotten more than once
         if(bloomed && destroyOnHarvest == false && growingDays == growthTime && !canBeHarvested)
         {
             canBeHarvested = true;
-            //transform.localScale *= 2;
         }
 
         GrowingFrames();
@@ -146,8 +149,8 @@ public class JDPlantClass : MonoBehaviour
     /// <returns>returns true if the plant is ready to be harvested</returns>
     public bool CanHarvest()
     {
-        if (bloomed && canBeHarvested) return true;
-        return false;
+        return (bloomed && canBeHarvested);
+        
     }
 
     /// <summary>
