@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
@@ -31,6 +32,18 @@ public class GameController : MonoBehaviour
     /// </summary>
     public GameObject fence;
     /// <summary>
+    /// A reference sprite of the sun
+    /// </summary>
+    public Sprite sun;
+    /// <summary>
+    /// A reference sprite of the moon
+    /// </summary>
+    public Sprite moon;
+    /// <summary>
+    /// A reference of day panel
+    /// </summary>
+    public Image dayPanel;
+    /// <summary>
     /// The starting money of the player
     /// </summary>
     public int startingMoney = 500;
@@ -38,6 +51,7 @@ public class GameController : MonoBehaviour
     /// A reference of the current merchant
     /// </summary>
     GameObject merchantRef;
+
     /// <summary>
     /// A reference to the grid spawner
     /// </summary>
@@ -121,6 +135,8 @@ public class GameController : MonoBehaviour
             transform.GetComponentInParent<CameraController>().switchDay();
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -1);
             playerCon.isNight = false;
+            print(dayPanel.transform.GetChild(0));
+            dayPanel.transform.GetChild(0).GetComponent<Image>().sprite = sun;
             if (dCount == 0 || merchantArrived())
             {
                 Vector2 placement = new Vector2(0, gridCon.mapHeight);
@@ -135,6 +151,7 @@ public class GameController : MonoBehaviour
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z - 1);
             playerCon.isNight = true;
             CheckPlantsGrow();
+            dayPanel.transform.GetChild(0).GetComponent<Image>().sprite = moon;
             SaveLoadController.setSeeds(plantedSeeds.ToArray() as GameObject[]);
             SaveLoadController.setFences(placedFences.ToArray() as GameObject[]);
             //SaveLoadController.Save();
@@ -262,8 +279,7 @@ public class GameController : MonoBehaviour
         foreach (GameObject ground in groundArray)
         {
             if (ground.GetComponentInChildren<JDGroundClass>().occupiedWith != null)
-            {
-                //the plant checks if the tile has been watered, if so it will grow                
+            {              
                 ground.GetComponentInChildren<JDGroundClass>().occupiedWith.GetComponentInChildren<JDPlantClass>().Grow();
                 if (ground.GetComponentInChildren<JDGroundClass>()._tileStatus == JDGroundClass.tiles.watered)
                 {

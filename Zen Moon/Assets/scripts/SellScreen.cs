@@ -7,30 +7,82 @@ using System.Collections;
 /// </summary>
 public class SellScreen : MonoBehaviour
 {
+    /// <summary>
+    /// The price of daikon seeds
+    /// </summary>
     public int daikonPrice = 10;
+    /// <summary>
+    /// The price of leek seeds
+    /// </summary>
     public int leekPrice = 20;
+    /// <summary>
+    /// The price of corn seeds
+    /// </summary>
     public int cornPrice = 30;
+    /// <summary>
+    /// The price of rice seeds
+    /// </summary>
     public int ricePrice = 40;
+    /// <summary>
+    /// The price of fences
+    /// </summary>
     public int fencePrice = 5;
 
+    /// <summary>
+    /// The reference to the daikon seed sprite
+    /// </summary>
     public GameObject daikonSeeds;
+    /// <summary>
+    /// The reference to the leek seeds sprite
+    /// </summary>
     public GameObject leekSeeds;
+    /// <summary>
+    /// The reference to the corn seeds sprite
+    /// </summary>
     public GameObject cornSeeds;
+    /// <summary>
+    /// The reference to the rice seeds sprite
+    /// </summary>
     public GameObject riceSeeds;
+    /// <summary>
+    /// The reference to to the fence
+    /// </summary>
     public GameObject fence;
 
+    /// <summary>
+    /// The total price text box
+    /// </summary>
     public Text Totalprice;
+    /// <summary>
+    /// The total money text box
+    /// </summary>
     public Text money;
+    /// <summary>
+    /// The reference to the player
+    /// </summary>
     public GameObject player;
 
+    /// <summary>
+    /// Total of money
+    /// </summary>
     int Total = 0;
+    /// <summary>
+    /// How many items the merchant has
+    /// </summary>
     ArrayList totalItems = new ArrayList();
 
+    /// <summary>
+    /// Sets the total money
+    /// </summary>
     void Start()
     {
         money.text = "$" + JDStaticVariables.moneyTotal.ToString();
     }
 
+    /// <summary>
+    /// Adds to the total number
+    /// </summary>
+    /// <param name="panel">A reference to the panel</param>
     public void AddToItem(GameObject panel)
     {
         Text name = panel.transform.GetChild(1).GetComponent<Text>();
@@ -50,6 +102,10 @@ public class SellScreen : MonoBehaviour
         Totalprice.text = "$" + Total.ToString();
     }
 
+    /// <summary>
+    /// Subtracts the total number
+    /// </summary>
+    /// <param name="panel">The reference of the panel</param>
     public void SubtractItem(GameObject panel)
     {
         Text name = panel.transform.GetChild(1).GetComponent<Text>();
@@ -72,6 +128,11 @@ public class SellScreen : MonoBehaviour
         } 
     }
 
+    /// <summary>
+    /// Gets the price according to the panel name
+    /// </summary>
+    /// <param name="name">The string name</param>
+    /// <returns>Returns an intiger</returns>
     int GetPrice(string name)
     {
         if (name == "Daikon Seeds")
@@ -97,6 +158,11 @@ public class SellScreen : MonoBehaviour
         return 0;
     }
 
+    /// <summary>
+    /// Returns an item for the name of the panel
+    /// </summary>
+    /// <param name="name">The name of the panel</param>
+    /// <returns>The gameobject</returns>
     GameObject GetItem(string name)
     {
         if (name == "Daikon Seeds")
@@ -122,6 +188,9 @@ public class SellScreen : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Buys the item
+    /// </summary>
     public void Buy()
     {
         int currMoney = JDStaticVariables.moneyTotal - Total;
@@ -133,6 +202,10 @@ public class SellScreen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets out of the screen
+    /// </summary>
+    /// <param name="merchantScreen">The panel</param>
     public void Cancel(GameObject merchantScreen)
     {
         merchantScreen.SetActive(false);
