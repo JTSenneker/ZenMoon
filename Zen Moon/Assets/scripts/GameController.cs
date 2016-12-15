@@ -19,9 +19,21 @@ public class GameController : MonoBehaviour
     /// </summary>
     public GameObject merchant;
     /// <summary>
+    /// The selling screen
+    /// </summary>
+    public GameObject merchantScreen;
+    /// <summary>
     /// A reference to the seeds object
     /// </summary>
     public GameObject seeds;
+    /// <summary>
+    /// The starting money of the player
+    /// </summary>
+    public int startingMoney = 500;
+    /// <summary>
+    /// A reference of the current merchant
+    /// </summary>
+    GameObject merchantRef;
     /// <summary>
     /// A reference to the grid spawner
     /// </summary>
@@ -42,6 +54,7 @@ public class GameController : MonoBehaviour
     {
         gridCon = grid.GetComponent<JDGroundSpawner>();
         playerCon = player.GetComponent<PlayerController>();
+        JDStaticVariables.moneyTotal = startingMoney;
 
         SaveLoadController.setPlayer(player);
         SaveLoadController.setInvCon(playerCon.invCon);
@@ -60,10 +73,11 @@ public class GameController : MonoBehaviour
     {
         if (playerCon.isInteracting)
         {
-            if (JDMouseTargeting.GetMouseTarget().tag == merchant.tag)
+            if (JDMouseTargeting.GetMouseTarget() != null && JDMouseTargeting.GetMouseTarget().tag == merchant.tag)
             {
+                playerCon.inMenu = true;
                 Time.timeScale = 0;
-                merchant.GetComponent<Merchant>().openSell();
+                merchantRef.GetComponent<Merchant>().openSell(merchantScreen);
             }
             else if (playerCon.invCon.currItem.tag == "tool")
             {
@@ -86,7 +100,7 @@ public class GameController : MonoBehaviour
             if (merchantArrived())
             {
                 Vector2 placement = new Vector2(0, gridCon.mapHeight);
-                Instantiate(merchant, placement, Quaternion.identity);
+                merchantRef = (GameObject)Instantiate(merchant, placement, Quaternion.identity);
             }
             dCount = JDStaticVariables.dayCount;
         }
@@ -121,7 +135,7 @@ public class GameController : MonoBehaviour
         GameObject item = playerCon.invCon.currItem;
         if (tile != null)
         {
-            GameObject newItem = (GameObject)Instantiate(item, tile.transform.position, Quaternion.identity);
+            Instantiate(item, tile.transform.position, Quaternion.identity);
         }
     }
 

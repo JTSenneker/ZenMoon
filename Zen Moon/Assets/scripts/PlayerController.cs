@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
     /// The direction the player is facing
     /// </summary>
     direction movement = direction.forward;
+    public bool inMenu = false;
 
     /// <summary>
     /// The directions that the player can face
@@ -88,11 +89,23 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void Update () 
     {
-        walkV = Input.GetAxisRaw("Vertical");
-        walkH = Input.GetAxisRaw("Horizontal");
-        switchInventory = Input.GetAxisRaw("Inventory Scroll");
-        action = Input.GetAxis("Action");
-        pick = Input.GetAxis("Pick");
+        if (inMenu)
+        {
+            walkV = 0;
+            walkH = 0;
+            switchInventory = 0;
+            action = 0;
+            pick = 0;
+        }
+        else
+        {
+            walkV = Input.GetAxisRaw("Vertical");
+            walkH = Input.GetAxisRaw("Horizontal");
+            switchInventory = Input.GetAxisRaw("Inventory Scroll");
+            action = Input.GetAxis("Action");
+            pick = Input.GetAxis("Pick");
+        }
+        
         
         if (animCon.animFinished)
         {
@@ -245,6 +258,19 @@ public class PlayerController : MonoBehaviour
         else
         {
             animCon.ThrowAnimEnd();
+        }
+    }
+
+    /// <summary>
+    /// Adds a bunch of items into the inventory
+    /// </summary>
+    /// <param name="items">The items being added</param>
+    public void AddInventoryItems(ArrayList items)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            print(i);
+            invCon.AddItem((GameObject)items[i]);
         }
     }
 }

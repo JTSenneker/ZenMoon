@@ -16,10 +16,6 @@ public class Merchant : MonoBehaviour
     /// </summary>
     public GameObject itemPanel;
     /// <summary>
-    /// The selling screen
-    /// </summary>
-    public GameObject merchantScreen;
-    /// <summary>
     /// The indexes already used for putting together a random inventory
     /// </summary>
     ArrayList indexesUsed = new ArrayList();
@@ -30,7 +26,7 @@ public class Merchant : MonoBehaviour
     /// <summary>
     /// The current inventory of the merchant
     /// </summary>
-    ArrayList itemSale = new ArrayList();
+    public ArrayList itemSale = new ArrayList();
     /// <summary>
     /// The amount of items the merchant has in stock
     /// </summary>
@@ -85,31 +81,11 @@ public class Merchant : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds panels to the merchant screen
+    /// Opens the sell screen
     /// </summary>
-    public void insertItems()
-    {
-        GameObject parent = merchantScreen.transform.GetChild(0).GetChild(0).gameObject;
-        float parentHeight = parent.GetComponent<RectTransform>().rect.height;
-        float panelHeight = itemPanel.GetComponent<RectTransform>().rect.height;
-
-        for (int i = 0; i < itemSale.Count; i++)
-        {
-            Vector2 place = new Vector2(parent.transform.position.x, parent.transform.position.y - (parentHeight / 2 - panelHeight / 2 + 5));
-            GameObject newItemPanel = (GameObject)Instantiate(itemPanel, place, Quaternion.identity);
-            newItemPanel.transform.parent = parent.transform;
-            fillPanel(newItemPanel, (GameObject)itemSale[i]);
-        }
-    }
-
-    void fillPanel(GameObject panel, GameObject item)
-    {
-
-    }
-
-    public void openSell()
+    /// <param name="merchantScreen">The sell screen</param>
+    public void openSell(GameObject merchantScreen)
     {
         merchantScreen.SetActive(true);
-        insertItems();
     }
 }

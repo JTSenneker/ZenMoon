@@ -4,8 +4,8 @@ using System.Collections;
 /// <summary>
 /// Creates a boundary around the interactable ground
 /// </summary>
-public class CreateBoundary : MonoBehaviour {
-
+public class CreateBoundary : MonoBehaviour
+{
     /// <summary>
     /// The object for the boundary
     /// </summary>
@@ -22,9 +22,9 @@ public class CreateBoundary : MonoBehaviour {
     /// <summary>
     /// Places the boundary around the ground
     /// </summary>
-	void Start ()
+	void Start()
     {
-        for (int i = 0; i < gridHeight; i++)
+        for (int i = 0; i < gridHeight + 1; i++)
         {
             Vector2 rightBoundPlace = new Vector2(-1, i);
             Vector2 leftBoundPlace = new Vector2(gridWidth, i);
@@ -34,9 +34,9 @@ public class CreateBoundary : MonoBehaviour {
         for (int i = 0; i < gridWidth; i++)
         {
             Vector2 topBoundPlace = new Vector2(i, -1);
-            Vector2 bottomBoundPlace = new Vector2(i, gridHeight);
+            Vector2 bottomBoundPlace = new Vector2(i, gridHeight + 1);
             Instantiate(boundary, topBoundPlace, Quaternion.identity);
             Instantiate(boundary, bottomBoundPlace, Quaternion.identity);
         }
-	}
+    }
 }
