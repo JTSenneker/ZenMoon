@@ -79,21 +79,25 @@ public class PlantGrowth : MonoBehaviour {
                 anim.runtimeAnimatorController = cornAnimControl;
                 moneyValue = 60;
                 growthTime = 7;
+                renewable = true;
                 break;
             case SeedType.daikon:
                 anim.runtimeAnimatorController = daikonAnimControl;
                 moneyValue = 20;
                 growthTime = 4;
+                renewable = false;
                 break;
             case SeedType.leek:
                 anim.runtimeAnimatorController = leekAnimControl;
                 moneyValue = 40;
                 growthTime = 5;
+                renewable = false;
                 break;
             case SeedType.rice:
                 anim.runtimeAnimatorController = riceAnimControl;
                 moneyValue = 80;
                 growthTime = 10;
+                renewable = true;
                 break;
         }
 	}
@@ -124,7 +128,7 @@ public class PlantGrowth : MonoBehaviour {
                     plantGrowth = 7;
                     break;
             }
-        }else {
+        }else if(!renewable){
             Destroy(this.gameObject);
         }
     }

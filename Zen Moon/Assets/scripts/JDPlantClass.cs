@@ -48,17 +48,6 @@ public class JDPlantClass : MonoBehaviour
     Animator anim;
 
     /// <summary>
-    /// Possible types of crops
-    /// </summary>
-    public enum SeedType
-    {
-        daikon,
-        leek,
-        corn,
-        rice
-    }
-
-    /// <summary>
     /// The type of crop this plant is
     /// </summary>
     public SeedType seedType;
@@ -138,7 +127,6 @@ public class JDPlantClass : MonoBehaviour
                 break;
             case SeedType.daikon:
                // spriteR.sprite = daikon1;
-                print("setting daikon");
                 break;
         }
     }

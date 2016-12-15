@@ -18,7 +18,7 @@ public class JDShippingClass : MonoBehaviour {
         int moneyToShip = 0;
         foreach (GameObject stuff in shippingStock)
         {
-            int moneyValue = stuff.GetComponent<JDPlantClass>().moneyValue;
+            int moneyValue = stuff.GetComponent<PlantGrowth>().moneyValue;
             moneyToShip += moneyValue;
             //Debug.Log(moneyToShip);
         }

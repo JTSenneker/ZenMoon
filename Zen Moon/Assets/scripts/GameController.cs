@@ -110,10 +110,7 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 0;
                 merchantRef.GetComponent<Merchant>().openSell(merchantScreen);
             }
-            else if (JDMouseTargeting.GetMouseTarget() != null && JDMouseTargeting.GetMouseTarget().GetComponent<JDGroundClass>().occupiedWith != null)
-            {
-                Pick();
-            }
+            
             else if (playerCon.invCon.currItem.tag == "tool")
             {
                 SwitchTile();
@@ -130,6 +127,14 @@ public class GameController : MonoBehaviour
             playerCon.isInteracting = false;
         }
 
+        if (playerCon.isPicking)
+        { 
+            if (JDMouseTargeting.GetMouseTarget() != null && JDMouseTargeting.GetMouseTarget().GetComponent<JDGroundClass>().occupiedWith != null)
+            {
+                Pick();
+            }
+        }
+        
         if (GetComponent<DayNightController>().isDay && dCount != JDStaticVariables.dayCount)
         {
             transform.GetComponentInParent<CameraController>().switchDay();
@@ -191,7 +196,7 @@ public class GameController : MonoBehaviour
         {
             if (itemOccupying.tag == "seeds")
             {
-                //logic for dealing with picking a plant
+                itemOccupying.GetComponent<PlantGrowth>().Harvest();
             }
             else if (itemOccupying.tag == "crop")
             {
@@ -236,8 +241,8 @@ public class GameController : MonoBehaviour
             if (tileType == JDGroundClass.tiles.tilled)
             {
                 GameObject newSeeds = (GameObject)Instantiate(seeds, tile.transform.position, Quaternion.identity);
-                newSeeds.GetComponent<JDPlantClass>().seedType = playerCon.invCon.currItem.GetComponent<JDPlantClass>().seedType;
-                newSeeds.GetComponent<JDPlantClass>().plantedTile = tile;
+                newSeeds.GetComponent<PlantGrowth>().seedType = playerCon.invCon.currItem.GetComponent<JDPlantClass>().seedType;
+                newSeeds.GetComponent<PlantGrowth>().plantedTile = tile;
                 tile.GetComponent<JDGroundClass>().occupiedWith = newSeeds;
                 plantedSeeds.Add(newSeeds);
             }
@@ -280,7 +285,7 @@ public class GameController : MonoBehaviour
         {
             if (ground.GetComponentInChildren<JDGroundClass>().occupiedWith != null)
             {              
-                ground.GetComponentInChildren<JDGroundClass>().occupiedWith.GetComponentInChildren<JDPlantClass>().Grow();
+                ground.GetComponentInChildren<JDGroundClass>().occupiedWith.GetComponentInChildren<PlantGrowth>().Grow();
                 if (ground.GetComponentInChildren<JDGroundClass>()._tileStatus == JDGroundClass.tiles.watered)
                 {
                     ground.GetComponentInChildren<JDGroundClass>()._tileStatus = JDGroundClass.tiles.tilled;
@@ -300,7 +305,7 @@ public class GameController : MonoBehaviour
         {
             Vector2 placement = new Vector2(seedInfo[0, i], seedInfo[1, i]);
             GameObject newSeeds = (GameObject)Instantiate(seeds, placement, Quaternion.identity);
-            newSeeds.GetComponent<JDPlantClass>().seedType = (JDPlantClass.SeedType)seedInfo[2, i];
+            newSeeds.GetComponent<PlantGrowth>().seedType = (SeedType)seedInfo[2, i];
             //do something about the stage
             plantedSeeds.Add(newSeeds);
         }  

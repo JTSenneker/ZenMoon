@@ -69,20 +69,14 @@
      <Compile Include="Assets\scripts\JDZenLength.cs" />
      <Compile Include="Assets\scripts\Merchant.cs" />
      <Compile Include="Assets\scripts\NightController.cs" />
-<<<<<<< master
-     <Compile Include="Assets\scripts\PlantGrowth.cs" />
-=======
      <Compile Include="Assets\scripts\NightTargetController.cs" />
->>>>>>> Minor stuff
+     <Compile Include="Assets\scripts\PlantGrowth.cs" />
      <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
      <Compile Include="Assets\scripts\PlayerController.cs" />
      <Compile Include="Assets\scripts\SaveControl.cs" />
      <Compile Include="Assets\scripts\SaveLoadController.cs" />
      <Compile Include="Assets\scripts\Seeds.cs" />
-<<<<<<< master
-=======
      <Compile Include="Assets\scripts\SellScreen.cs" />
->>>>>>> Minor stuff
      <Compile Include="Assets\scripts\Tool.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

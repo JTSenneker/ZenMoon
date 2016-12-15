@@ -68,6 +68,10 @@ public class PlayerController : MonoBehaviour
     /// Whether or not it is currently night time
     /// </summary>
     public bool isNight = false;
+    /// <summary>
+    /// Whether or not the player is picking a plant
+    /// </summary>
+    public bool isPicking = false;
 
     /// <summary>
     /// The directions that the player can face
@@ -127,7 +131,7 @@ public class PlayerController : MonoBehaviour
         {
             animCon.PickUp();
             invCon.AddItem(item);
-            isInteracting = true;
+            isPicking = true;
         }
     }
 
