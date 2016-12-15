@@ -6,6 +6,7 @@ using System.Collections;
 /// </summary>
 public class JDPlantClass : MonoBehaviour
 {
+    Sprite daikon1;
     /// <summary>
     /// how long it grows for
     /// </summary>
@@ -36,7 +37,9 @@ public class JDPlantClass : MonoBehaviour
     public GameObject plantedTile;
 
 
-
+    /// <summary>
+    /// the spriterenderer attached to the object, not sure if i need this or the sprites itself to modify which one is being displayed
+    /// </summary>
     SpriteRenderer spriteR;
 
     /// <summary>
@@ -60,6 +63,8 @@ public class JDPlantClass : MonoBehaviour
     /// </summary>
     void Start ()
     {
+        daikon1 = (Sprite)Resources.Load("Plants_8");
+
         switch (seedType)
         {
             case SeedType.daikon:
@@ -106,7 +111,8 @@ public class JDPlantClass : MonoBehaviour
             canBeHarvested = true;
             //transform.localScale *= 2;
         }
-        
+
+        GrowingFrames();
         
         //once bloomed, we can then harvest from it
         //some plants stick around after being harvested
@@ -128,6 +134,8 @@ public class JDPlantClass : MonoBehaviour
             case SeedType.rice:
                 break;
             case SeedType.daikon:
+               // spriteR.sprite = daikon1;
+                print("setting daikon");
                 break;
         }
     }
