@@ -96,6 +96,10 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 0;
                 merchantRef.GetComponent<Merchant>().openSell(merchantScreen);
             }
+            else if (JDMouseTargeting.GetMouseTarget() != null && JDMouseTargeting.GetMouseTarget().GetComponent<JDGroundClass>().occupiedWith != null)
+            {
+                Pick();
+            }
             else if (playerCon.invCon.currItem.tag == "tool")
             {
                 SwitchTile();
@@ -159,12 +163,38 @@ public class GameController : MonoBehaviour
     }
 
     /// <summary>
+    /// Allows the player to pick up an item from the grid
+    /// </summary>
+    void Pick()
+    {
+        GameObject tile = JDMouseTargeting.target;
+        GameObject itemOccupying = tile.GetComponent<JDGroundClass>().occupiedWith;
+
+        if (tile != null && itemOccupying != null)
+        {
+            if (itemOccupying.tag == "seeds")
+            {
+                //logic for dealing with picking a plant
+            }
+            else if (itemOccupying.tag == "crop")
+            {
+                Destroy(itemOccupying);
+            }
+            else if (itemOccupying.tag == "fence")
+            {
+                Destroy(itemOccupying);
+            }
+        }
+    }
+
+    /// <summary>
     /// Places down an item that is being thrown
     /// </summary>
     void PlaceItems()
     {
         GameObject tile = JDMouseTargeting.target;
         GameObject item = playerCon.invCon.currItem;
+
         if (tile != null)
         {
             GameObject newItem = (GameObject)Instantiate(item, tile.transform.position, Quaternion.identity);
@@ -172,6 +202,7 @@ public class GameController : MonoBehaviour
             {
                 placedFences.Add(newItem);
             }
+            tile.GetComponent<JDGroundClass>().occupiedWith = newItem;
         }
     }
 
@@ -272,6 +303,20 @@ public class GameController : MonoBehaviour
             //change fence health...
             placedFences.Add(newFence);
         }
+    }
+
+    /// <summary>
+    /// Returns the item that is currently on the tile
+    /// </summary>
+    /// <returns>The gameobject on a tile</returns>
+    public static GameObject Occupied()
+    {
+        GameObject tile = JDMouseTargeting.target;
+        if (tile != null)
+        {
+            return tile.GetComponent<JDGroundClass>().occupiedWith;
+        }
+        return null;
     }
 }
 

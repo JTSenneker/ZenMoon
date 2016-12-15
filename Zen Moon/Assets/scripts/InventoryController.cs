@@ -157,12 +157,10 @@ public class InventoryController : MonoBehaviour
     /// <param name="item">The item being added to the inventory</param>
     public void AddItem(GameObject item)
     {
-        print(item);
         int index = CheckInventory(item);
 
         if (index == -1)
         {
-            print("here?");
             Vector3 placement = new Vector3(0, 0, -11);
             GameObject newItem = (GameObject)Instantiate(item, placement, Quaternion.identity);
             inventory.Add(newItem);
@@ -170,7 +168,6 @@ public class InventoryController : MonoBehaviour
         }
         else if ((int)inventoryCount[index] <= 99)
         {
-            print("here?");
             inventoryCount[index] = (int)inventoryCount[index] + 1;
         }
     }
@@ -205,6 +202,10 @@ public class InventoryController : MonoBehaviour
                     return inventory.IndexOf(g);
                 }
             }
+            if (item.tag == "fence" && g.tag == "fence")
+            {
+                return inventory.IndexOf(g);
+            }
         }
 
         return -1;
@@ -220,18 +221,18 @@ public class InventoryController : MonoBehaviour
 
         if (index != -1)
         {
-            if ((int)inventoryCount[index] > 0)
-            {
-                inventoryCount[index] = (int)inventoryCount[index] - 1;
-                print(inventoryCount[index]);
-            }
-            else if ((int)inventoryCount[index] == 0)
-            {
+            if ((int)inventoryCount[index] == 0)
+            {  
                 inventoryCount.Remove(inventoryCount[index]);
                 inventory.Remove(inventory[index]);
                 Destroy(currItem.gameObject);
                 MoveInventory(-1);
             }
+            else if ((int)inventoryCount[index] > 0)
+            {
+                inventoryCount[index] = (int)inventoryCount[index] - 1;
+            }
+            
         }
     }
 
@@ -261,16 +262,20 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public void HideItem()
     {
-        if (tempObj.tag == "crop")
+        if (tempObj != null)
         {
-            tempObj.GetComponent<Crop>().NotSelected();
+            if (tempObj.tag == "crop")
+            {
+                tempObj.GetComponent<Crop>().NotSelected();
+            }
+            if (tempObj.tag == "fence")
+            {
+                tempObj.GetComponent<Fence>().NotSelected();
+            }
+            Destroy(tempObj.gameObject);
+            isShowing = false;
         }
-        if (tempObj.tag == "fence")
-        {
-            tempObj.GetComponent<Fence>().NotSelected();
-        }
-        Destroy(tempObj.gameObject);
-        isShowing = false;
+        
     }
 }
 

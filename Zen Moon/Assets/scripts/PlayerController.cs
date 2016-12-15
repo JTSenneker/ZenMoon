@@ -94,7 +94,83 @@ public class PlayerController : MonoBehaviour
 	/// <summary>
 	/// Figures out the input of the user and applies it to the player, and changes the animation conditions depending on the input.
 	/// </summary>
-	void Update () 
+	void Update ()
+    {
+        SetControls();
+
+        if (animCon.animFinished)
+        {
+            if (switchInventory != 0)
+            {
+                SwitchInventory();
+            }
+            else if (action != 0 && invCon.currItem != null)
+            {
+                DoAction();
+            }
+            else if (pick != 0)
+            {
+                PickUp();
+            }
+            else
+            {
+                MovePlayer();
+                CheckDirection();
+            }
+        }
+    }
+
+    private void PickUp()
+    {
+        GameObject item = GameController.Occupied();
+        if (item != null)
+        {
+            animCon.PickUp();
+            invCon.AddItem(item);
+            isInteracting = true;
+        }
+    }
+
+    private void DoAction()
+    {
+        walkV = 0;
+        walkH = 0;
+        if (invCon.currItem.tag == "tool")
+        {
+            animCon.UseTool(invCon.currItem.GetComponent<Tool>().AnimVar());
+            isInteracting = true;
+        }
+        else if (invCon.currItem.tag == "seeds")
+        {
+            invCon.RemoveItem(invCon.currItem);
+            animCon.UseSeeds();
+            isInteracting = true;
+        }
+        else if (invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
+        {
+            animCon.Throw();
+            isInteracting = true;
+            ItemThrow();
+        }
+    }
+
+    /// <summary>
+    /// Switches the player's inventory
+    /// </summary>
+    private void SwitchInventory()
+    {
+        walkV = 0;
+        walkH = 0;
+        movement = direction.forward;
+        animCon.SwitchInventory();
+        invCon.MoveInventory(switchInventory);
+        invCon.ShowItem();
+    }
+
+    /// <summary>
+    /// Sets the controls of the player to the input of the user based on whether or not it is night and if the the user is in a menu
+    /// </summary>
+    private void SetControls()
     {
         if (inMenu || isNight)
         {
@@ -112,57 +188,7 @@ public class PlayerController : MonoBehaviour
             action = Input.GetAxis("Action");
             pick = Input.GetAxis("Pick");
         }
-        
-        
-        if (animCon.animFinished)
-        {
-            if (switchInventory != 0)
-            {
-                walkV = 0;
-                walkH = 0;
-                movement = direction.forward;
-                invCon.MoveInventory(switchInventory);
-                animCon.SwitchInventory();
-                invCon.ShowItem();
-            }
-            else if (action != 0 && invCon.currItem != null)
-            {
-                if (invCon.currItem.tag == "tool")
-                {
-                    animCon.UseTool(invCon.currItem.GetComponent<Tool>().AnimVar());
-                    isInteracting = true;
-                }
-                else if (invCon.currItem.tag == "seeds")
-                {
-                    invCon.RemoveItem(invCon.currItem);
-                    animCon.UseSeeds();
-                    isInteracting = true;
-                }
-                else if(invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
-                {
-                    animCon.Throw();
-                    isInteracting = true;
-                }
-            }
-            else if (pick != 0) //and there's something there and there's nothing in the player's hands
-            {
-                //Will need changing when merged and able to look at grid system
-                Vector2 mousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, mousePos, 1);
-                if (hit.collider != null)
-                {
-                    animCon.PickUp();
-                    invCon.AddItem(hit.collider.gameObject);
-                    Destroy(hit.collider.gameObject);
-                }
-            }
-            else
-            {
-                MovePlayer();
-                CheckDirection();
-            }
-        }
-	}
+    }
 
     /// <summary>
     /// Moves the player according to input and triggers animation
@@ -243,11 +269,11 @@ public class PlayerController : MonoBehaviour
         if (invCon.currItem.tag != "crop" && invCon.currItem.tag != "fence")
         {
             invCon.HideItem();
-            animCon.withItem = false;
+            PlayerAnimationController.withItem = false;
         }
         if (invCon.currItem.tag == "crop" || invCon.currItem.tag == "fence")
         {
-            animCon.withItem = true;
+            PlayerAnimationController.withItem = true;
         }
     }
 
@@ -256,15 +282,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public void ItemThrow()
     {
-        invCon.HideItem();
         invCon.RemoveItem(invCon.currItem);
-        if(invCon.currItem != null)
+        invCon.HideItem();
+        if (invCon.currItem == invCon.prevItem)
         {
             invCon.ShowItem();
         }
         else
         {
-            animCon.ThrowAnimEnd();
+            ItemHide();
         }
     }
 
@@ -276,7 +302,6 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            print(i);
             invCon.AddItem((GameObject)items[i]);
         }
     }

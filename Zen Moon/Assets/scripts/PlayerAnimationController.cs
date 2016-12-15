@@ -17,7 +17,7 @@ public class PlayerAnimationController : MonoBehaviour
     /// <summary>
     /// Whether or not the player has an item in their hands
     /// </summary>
-    public bool withItem = false;
+    public static bool withItem = false;
 
     /// <summary>
     /// Sets the animator component of the player
@@ -47,6 +47,9 @@ public class PlayerAnimationController : MonoBehaviour
     /// <param name="var">The parameter boolean for the currently selected tool</param>
     public void UseTool(string var)
     {
+        anim.SetFloat("horizontalSpeed", 0);
+        anim.SetFloat("verticalSpeed", 0);
+        anim.SetBool("isWith", false);
         anim.SetBool(var, true);
     }
 
@@ -74,7 +77,7 @@ public class PlayerAnimationController : MonoBehaviour
     public void Throw()
     {
         anim.SetBool("isThrow", true);
-        GetComponent<PlayerController>().ItemThrow();
+        animFinished = false;
     }
     
     /// <summary>
@@ -88,6 +91,9 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (!withItem)
         {
+            anim.SetBool("isWith", false);
+            anim.SetBool("facingSideWith", false);
+            anim.SetBool("facingBackWith", false);
             if (var == "verticalSpeed")
             {
                 if (input > 0)
@@ -165,7 +171,6 @@ public class PlayerAnimationController : MonoBehaviour
     /// </summary>
     public void PickingAnimEnd()
     {
-        print("We're getting here");
         anim.SetBool("isPicking", false);
         animFinished = true;
         
@@ -185,6 +190,8 @@ public class PlayerAnimationController : MonoBehaviour
     /// </summary>
     public void ThrowAnimEnd()
     {
-        anim.SetBool("isWith", false);
+        anim.SetBool("isThrow", false);
+        animFinished = true;
+        GetComponent<PlayerController>().ItemHide();
     }
 }

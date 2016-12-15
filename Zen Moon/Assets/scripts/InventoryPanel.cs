@@ -44,6 +44,7 @@ public class InventoryPanel : MonoBehaviour
             hideItem();
             showItem();
         }
+        RefreshCount();
     }
 
     /// <summary>
@@ -85,5 +86,13 @@ public class InventoryPanel : MonoBehaviour
             item.transform.parent = this.transform;
         }
 
+    }
+
+    /// <summary>
+    /// Refreshes the current inventory count if the player has removed or added an item
+    /// </summary>
+    void RefreshCount()
+    {
+        itemCount.text = invCon.GetCurrentCount().ToString();
     }
 }
