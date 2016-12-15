@@ -46,7 +46,6 @@ public class DayNightController : MonoBehaviour
         {
             if (isDay)
             {
-                //SaveLoadController.Save();
                 Timer = nightTime * secsInMin;
                 isDay = false;
             }

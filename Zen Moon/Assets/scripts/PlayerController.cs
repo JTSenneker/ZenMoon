@@ -60,7 +60,14 @@ public class PlayerController : MonoBehaviour
     /// The direction the player is facing
     /// </summary>
     direction movement = direction.forward;
+    /// <summary>
+    /// Whether or not the player is currently in a menu
+    /// </summary>
     public bool inMenu = false;
+    /// <summary>
+    /// Whether or not it is currently night time
+    /// </summary>
+    public bool isNight = false;
 
     /// <summary>
     /// The directions that the player can face
@@ -89,7 +96,7 @@ public class PlayerController : MonoBehaviour
 	/// </summary>
 	void Update () 
     {
-        if (inMenu)
+        if (inMenu || isNight)
         {
             walkV = 0;
             walkH = 0;

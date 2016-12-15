@@ -66,4 +66,34 @@ public class JDGroundSpawner : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Sets the terrain to the saved terrain
+    /// </summary>
+    /// <param name="types">The types of the tiles in strings</param>
+    public void ChangeTerrain(string[,] types)
+    {
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                groundArray[y, x].GetComponent<JDGroundClass>().LoadStatus(types[y, x]);
+            }
+        }
+        
+    }
+
+    ////TODO: Needs to return a string for save and load
+    /*
+    GameObject GetGroundTile(int tile)
+    {
+        switch (tile)
+        {
+            case (int)JDStaticVariables.tiles.dirt:
+                return ground;
+            case (int)JDStaticVariables.tiles.tilledDirt:
+                return tilledGround;
+        }
+        return ground;
+    }*/
 }

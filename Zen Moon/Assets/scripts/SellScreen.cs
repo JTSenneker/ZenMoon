@@ -136,5 +136,7 @@ public class SellScreen : MonoBehaviour
     public void Cancel(GameObject merchantScreen)
     {
         merchantScreen.SetActive(false);
+        player.GetComponent<PlayerController>().inMenu = false;
+        Time.timeScale = 1;
     }
 }

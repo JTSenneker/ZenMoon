@@ -80,4 +80,24 @@ public class JDGroundClass : MonoBehaviour {
 
         return null;
     }
+
+    /// <summary>
+    /// Loads the status of the ground when the game is being continued
+    /// </summary>
+    /// <param name="type"></param>
+    public void LoadStatus(string type)
+    {
+        switch(type)
+        {
+            case "dirt":
+                _tileStatus = tiles.dirt;
+                break;
+            case "tilled":
+                _tileStatus = tiles.tilled;
+                break;
+            case "watered":
+                _tileStatus = tiles.watered;
+                break;
+        }
+    }
 }

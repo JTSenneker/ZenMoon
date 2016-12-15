@@ -38,10 +38,6 @@ public class InventoryController : MonoBehaviour
     /// The items that the player starts with
     /// </summary>
     public GameObject[] startItems;
-    /// <summary>
-    /// Testing variable
-    /// </summary>
-    public int[] itemCount;
 
     /// <summary>
     /// Adds certain starting items to inventory
@@ -51,10 +47,6 @@ public class InventoryController : MonoBehaviour
         foreach (GameObject item in startItems)
         {
             AddItem(item);
-        }
-        foreach (int itemC in itemCount)
-        {
-            inventoryCount.Add(itemC);
         }
         if (inventory[currIndex] != null)
         {
@@ -165,17 +157,20 @@ public class InventoryController : MonoBehaviour
     /// <param name="item">The item being added to the inventory</param>
     public void AddItem(GameObject item)
     {
+        print(item);
         int index = CheckInventory(item);
 
         if (index == -1)
         {
+            print("here?");
             Vector3 placement = new Vector3(0, 0, -11);
             GameObject newItem = (GameObject)Instantiate(item, placement, Quaternion.identity);
             inventory.Add(newItem);
-            //inventoryCount.Add(1);
+            inventoryCount.Add(1);
         }
         else if ((int)inventoryCount[index] <= 99)
         {
+            print("here?");
             inventoryCount[index] = (int)inventoryCount[index] + 1;
         }
     }

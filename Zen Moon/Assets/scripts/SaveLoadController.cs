@@ -33,6 +33,18 @@ public static class SaveLoadController
     /// The grid controller
     /// </summary>
     static JDGroundSpawner grid;
+    /// <summary>
+    /// The placed seeds in the game
+    /// </summary>
+    static GameObject[] seeds;
+    /// <summary>
+    /// The placed fences in the game
+    /// </summary>
+    static GameObject[] fences;
+    /// <summary>
+    /// The game controller
+    /// </summary>
+    static GameController gameCon;
 
     /// <summary>
     /// Sets the player
@@ -62,6 +74,33 @@ public static class SaveLoadController
     }
 
     /// <summary>
+    /// Sets all the seeds
+    /// </summary>
+    /// <param name="sds"></param>
+    public static void setSeeds(GameObject[] sds)
+    {
+        seeds = sds;
+    }
+
+    /// <summary>
+    /// Sets all the fences
+    /// </summary>
+    /// <param name="fncs">The fences being set</param>
+    public static void setFences(GameObject[] fncs)
+    {
+        fences = fncs;
+    }
+
+    /// <summary>
+    /// Sets the game controller
+    /// </summary>
+    /// <param name="controller">The game controller</param>
+    public static void setGameControl(GameController controller)
+    {
+        gameCon = controller;
+    }
+
+    /// <summary>
     /// Saves the current game
     /// </summary>
     public static void Save()
@@ -82,19 +121,37 @@ public static class SaveLoadController
         }
         if (grid != null)
         {
-            //int[,] ground = grid.map;
-            //for (int i = 0; i < ground.Length; i++)
-            //{
-            //    //for (int j = 0; j < ground.GetLength(i); j++)
-            //    //{
-            //    //    //For this to work at all I need either a multidimensional array using
-            //    //    //a gameobject array or I need a way to get the tile from the JDGroundSpawner class!!
-
-            //    //    //get the type of each tile
-            //    //    //make a switch statement to switch each type to a string
-            //    //}
-            //}
+            GameObject[,] ground = grid.groundArray;
+            for (int y = 0; y < grid.mapHeight; y++)
+            {
+                for (int x = 0; x < grid.mapWidth; x++)
+                {
+                    //data.groundType[y, x] = ground[y, x].GetComponent<JDGroundClass>().GetType();
+                }
+            }
         }
+        if (seeds.Length != 0)
+        {
+            for (int i = 0; i < seeds.Length; i++)
+            {
+                data.seedsInfo[0, i] = seeds[i].transform.position.x;
+                data.seedsInfo[1, i] = seeds[i].transform.position.y;
+                data.seedsInfo[2, i] = (int)seeds[i].GetComponent<JDPlantClass>().seedType;
+                //also save the stage somehow...
+            }
+        }
+        if (fences.Length != 0)
+        {
+            for (int i = 0; i < fences.Length; i++)
+            {
+                data.fencesInfo[0, i] = fences[i].transform.position.x;
+                data.fencesInfo[1, i] = fences[i].transform.position.y;
+                //save health...
+            }
+        }
+        data.dayCount = JDStaticVariables.dayCount;
+        data.money = JDStaticVariables.moneyTotal;
+        data.zen = JDStaticVariables.zenTotal;
 
         if(save1)
         {
@@ -148,6 +205,9 @@ public static class SaveLoadController
             player.transform.position = new Vector3(data.playerPosX, data.playerPosY, data.playerPosZ);
             invCon.SetInventory(data.playerInventory);
             invCon.SetInventoryCount(data.playerInventoryCount);
+            grid.ChangeTerrain(data.groundType);
+            gameCon.AddSeeds(data.seedsInfo);
+            gameCon.AddFences(data.fencesInfo);
         }
         catch (Exception e)
         {
@@ -186,5 +246,28 @@ class SaveGameData
     /// The player inventory count
     /// </summary>
     public ArrayList playerInventoryCount;
-    //public string[,] groundType;
+    /// <summary>
+    /// The ground type of each tile
+    /// </summary>
+    public string[,] groundType;
+    /// <summary>
+    /// The information of all the seeds planted
+    /// </summary>
+    public float[,] seedsInfo;
+    /// <summary>
+    /// The placement of all of the fences that were placed
+    /// </summary>
+    public float[,] fencesInfo;
+    /// <summary>
+    /// The day count
+    /// </summary>
+    public int dayCount;
+    /// <summary>
+    /// The money
+    /// </summary>
+    public int money;
+    /// <summary>
+    /// The zen
+    /// </summary>
+    public int zen;
 }

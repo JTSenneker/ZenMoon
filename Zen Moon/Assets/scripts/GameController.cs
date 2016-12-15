@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     public GameObject seeds;
     /// <summary>
+    /// A reference to the fence object
+    /// </summary>
+    public GameObject fence;
+    /// <summary>
     /// The starting money of the player
     /// </summary>
     public int startingMoney = 500;
@@ -43,9 +47,21 @@ public class GameController : MonoBehaviour
     /// </summary>
     PlayerController playerCon;
     /// <summary>
+    /// The seeds planted in the game
+    /// </summary>
+    ArrayList plantedSeeds = new ArrayList();
+    /// <summary>
+    /// The placed fences in the game
+    /// </summary>
+    ArrayList placedFences = new ArrayList();
+    /// <summary>
     /// The day count
     /// </summary>
     int dCount = 0;
+    /// <summary>
+    /// The night count
+    /// </summary>
+    int nCount = 0;
 
     /// <summary>
     /// Sets the grid controller and the player controller and sets objects for the save mechanic
@@ -59,6 +75,7 @@ public class GameController : MonoBehaviour
         SaveLoadController.setPlayer(player);
         SaveLoadController.setInvCon(playerCon.invCon);
         SaveLoadController.setGrid(gridCon);
+        SaveLoadController.setGameControl(this);
 
         if (SaveLoadController.contin)
         {
@@ -95,9 +112,12 @@ public class GameController : MonoBehaviour
             playerCon.isInteracting = false;
         }
 
-        if (GetComponent<DayNightController>().isDay && dCount != JDStaticVariables.dayCount || JDStaticVariables.dayCount == 1 && dCount != JDStaticVariables.dayCount)
+        if (GetComponent<DayNightController>().isDay && dCount != JDStaticVariables.dayCount)
         {
-            if (merchantArrived())
+            transform.GetComponentInParent<CameraController>().switchDay();
+            player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -1);
+            playerCon.isNight = false;
+            if (dCount == 0 || merchantArrived())
             {
                 Vector2 placement = new Vector2(0, gridCon.mapHeight);
                 merchantRef = (GameObject)Instantiate(merchant, placement, Quaternion.identity);
@@ -105,9 +125,21 @@ public class GameController : MonoBehaviour
             dCount = JDStaticVariables.dayCount;
         }
 
-        else if (!GetComponent<DayNightController>().isDay)
+        else if (!GetComponent<DayNightController>().isDay && nCount != JDStaticVariables.dayCount)
         {
+            transform.GetComponentInParent<CameraController>().switchNight();
+            player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z - 1);
+            playerCon.isNight = true;
             CheckPlantsGrow();
+            SaveLoadController.setSeeds(plantedSeeds.ToArray() as GameObject[]);
+            SaveLoadController.setFences(placedFences.ToArray() as GameObject[]);
+            //SaveLoadController.Save();
+            if (nCount == 0 || merchantArrived())
+            {
+                Destroy(merchantRef);
+                merchantRef = null;
+            }
+            nCount = JDStaticVariables.dayCount;
         }
 
     }
@@ -135,7 +167,11 @@ public class GameController : MonoBehaviour
         GameObject item = playerCon.invCon.currItem;
         if (tile != null)
         {
-            Instantiate(item, tile.transform.position, Quaternion.identity);
+            GameObject newItem = (GameObject)Instantiate(item, tile.transform.position, Quaternion.identity);
+            if(newItem.tag == "fence")
+            {
+                placedFences.Add(newItem);
+            }
         }
     }
 
@@ -155,6 +191,7 @@ public class GameController : MonoBehaviour
                 newSeeds.GetComponent<JDPlantClass>().seedType = playerCon.invCon.currItem.GetComponent<JDPlantClass>().seedType;
                 newSeeds.GetComponent<JDPlantClass>().plantedTile = tile;
                 tile.GetComponent<JDGroundClass>().occupiedWith = newSeeds;
+                plantedSeeds.Add(newSeeds);
             }
         }
     }
@@ -203,6 +240,37 @@ public class GameController : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    /// <summary>
+    /// Adds seeds from save file
+    /// </summary>
+    /// <param name="seedInfo">The seeds being added back in</param>
+    public void AddSeeds(float[,] seedInfo)
+    {
+        for (int i = 0; i < seedInfo.Length; i++)
+        {
+            Vector2 placement = new Vector2(seedInfo[0, i], seedInfo[1, i]);
+            GameObject newSeeds = (GameObject)Instantiate(seeds, placement, Quaternion.identity);
+            newSeeds.GetComponent<JDPlantClass>().seedType = (JDPlantClass.SeedType)seedInfo[2, i];
+            //do something about the stage
+            plantedSeeds.Add(newSeeds);
+        }  
+    }
+
+    /// <summary>
+    /// Adds fences from save file
+    /// </summary>
+    /// <param name="seedInfo">The fences being added back in</param>
+    public void AddFences(float[,] fenceInfo)
+    {
+        for (int i = 0; i < fenceInfo.Length; i++)
+        {
+            Vector2 placement = new Vector2(fenceInfo[0, i], fenceInfo[1, i]);
+            GameObject newFence = (GameObject)Instantiate(fence, placement, Quaternion.identity);
+            //change fence health...
+            placedFences.Add(newFence);
         }
     }
 }

@@ -86,6 +86,7 @@
     <Compile Include="Assets\scripts\JDZenLength.cs" />
     <Compile Include="Assets\scripts\Merchant.cs" />
     <Compile Include="Assets\scripts\NightController.cs" />
+    <Compile Include="Assets\scripts\NightTargetController.cs" />
     <Compile Include="Assets\scripts\PlayerAnimationController.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
     <Compile Include="Assets\scripts\SaveControl.cs" />
